@@ -1,6 +1,6 @@
-package com.iberthy.backend.models;
+package com.iberthy.backend.model;
 
-import com.iberthy.backend.models.abstracts.Pessoa;
+import com.iberthy.backend.model.abstracts.Pessoa;
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;

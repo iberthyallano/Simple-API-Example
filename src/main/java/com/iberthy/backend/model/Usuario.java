@@ -1,6 +1,6 @@
-package com.iberthy.backend.models;
+package com.iberthy.backend.model;
 
-import com.iberthy.backend.models.abstracts.Pessoa;
+import com.iberthy.backend.model.abstracts.Pessoa;
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @Data
 @Entity
-public class Funcionario extends Pessoa {
+public class Usuario extends Pessoa {
 
     @NotBlank(message = Message.loginNotBlank)
     private String login;

@@ -1,4 +1,6 @@
-package com.iberthy.backend.models.validations.preccp;
+package com.iberthy.backend.model.validations.sexo;
+
+import com.iberthy.backend.utils.Message;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,9 +15,9 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @Target( { FIELD, PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = PreccpValidation.class)
-public @interface PreccpValidate {
-    String message() default "O preccp deve conter apenas números!";
+@Constraint(validatedBy = SexoValidation.class)
+public @interface SexoValidate {
+    String message() default Message.sexoValidate;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -1,8 +1,10 @@
-package com.iberthy.backend.services;
+package com.iberthy.backend.service;
 
-import com.iberthy.backend.models.Cliente;
-import com.iberthy.backend.repositorys.ClienteRepository;
+import com.iberthy.backend.model.Cliente;
+import com.iberthy.backend.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +16,8 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public List<Cliente> findAll(){
-        return clienteRepository.findAllActive();
+    public Page<Cliente> findAll( Pageable pageable){
+        return clienteRepository.findAllActive(pageable);
     }
 
     public Cliente findById(Long id){

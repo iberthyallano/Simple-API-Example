@@ -1,14 +1,15 @@
-package com.iberthy.backend.controllers;
+package com.iberthy.backend.controller;
 
-import com.iberthy.backend.models.Cliente;
-import com.iberthy.backend.services.ClienteService;
+import com.iberthy.backend.model.Cliente;
+import com.iberthy.backend.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/clientes")
@@ -18,8 +19,8 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public List<Cliente> listarClientes(){
-        return clienteService.findAll();
+    public Page<Cliente> listarClientes(Pageable pageable){
+        return clienteService.findAll(pageable);
     }
 
     @PostMapping
@@ -30,29 +31,19 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarClienteById(@PathVariable Long id){
-
-        var cliente = clienteService.findById(id);
-
-        if(cliente != null){return ResponseEntity.ok(cliente);}
-
-        return ResponseEntity.notFound().build();
+        var clienteDb = clienteService.findById(id);
+        return clienteDb != null ? ResponseEntity.ok(clienteDb) : ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> editarClienteById(@PathVariable Long id, @Valid @RequestBody Cliente cliente){
         var clienteDb= clienteService.edite(id, cliente);
-
-        if(clienteDb != null){return ResponseEntity.ok(clienteDb);}
-
-        return ResponseEntity.notFound().build();
+        return clienteDb != null ? ResponseEntity.ok(clienteDb) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClienteById(@PathVariable Long id){
         var clienteDb= clienteService.delete(id);
-
-        if(clienteDb != null){return ResponseEntity.noContent().build();}
-
-        return ResponseEntity.notFound().build();
+        return clienteDb != null ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

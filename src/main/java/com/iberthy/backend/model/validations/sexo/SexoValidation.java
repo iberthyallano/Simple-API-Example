@@ -1,4 +1,4 @@
-package com.iberthy.backend.models.validations.sexo;
+package com.iberthy.backend.model.validations.sexo;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

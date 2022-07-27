@@ -1,7 +1,6 @@
-package com.iberthy.backend.models.abstracts;
+package com.iberthy.backend.model.abstracts;
 
-import com.iberthy.backend.models.validations.preccp.PreccpValidate;
-import com.iberthy.backend.models.validations.sexo.SexoValidate;
+import com.iberthy.backend.model.validations.sexo.SexoValidate;
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,9 +32,6 @@ public abstract class Pessoa {
 
     @SexoValidate
     private Character sexo;
-
-    @PreccpValidate()
-    public String preccp;
 
     @NotBlank(message = Message.telefoneNotBlank)
     private String telefone;
