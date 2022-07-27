@@ -1,6 +1,6 @@
-package com.iberthy.backend.model.abstracts;
+package com.iberthy.backend.domain.abstracts;
 
-import com.iberthy.backend.model.validation.sexo.SexoValidate;
+import com.iberthy.backend.domain.validation.sexo.SexoValidate;
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;

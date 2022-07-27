@@ -1,6 +1,6 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.model.Produto;
+import com.iberthy.backend.domain.entity.Produto;
 import com.iberthy.backend.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

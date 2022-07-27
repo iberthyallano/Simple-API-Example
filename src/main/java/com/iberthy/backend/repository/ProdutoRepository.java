@@ -1,6 +1,6 @@
 package com.iberthy.backend.repository;
 
-import com.iberthy.backend.model.Produto;
+import com.iberthy.backend.domain.entity.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

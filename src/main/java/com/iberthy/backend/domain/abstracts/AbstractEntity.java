@@ -1,4 +1,4 @@
-package com.iberthy.backend.model.abstracts;
+package com.iberthy.backend.domain.abstracts;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
