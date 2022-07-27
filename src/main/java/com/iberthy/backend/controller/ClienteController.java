@@ -1,6 +1,7 @@
 package com.iberthy.backend.controller;
 
 import com.iberthy.backend.model.Cliente;
+import com.iberthy.backend.model.Usuario;
 import com.iberthy.backend.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,8 +20,8 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public Page<Cliente> listarClientes(Pageable pageable){
-        return clienteService.findAll(pageable);
+    public Page<Cliente> listarClientes(Cliente filtro, Pageable pageable){
+        return clienteService.findAll(filtro,pageable);
     }
 
     @PostMapping

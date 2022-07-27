@@ -19,8 +19,8 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    public Page<Usuario> listarUsuarios(Pageable pageable){
-        return usuarioService.findAll(pageable);
+    public Page<Usuario> listarUsuarios(Usuario filtro,Pageable pageable){
+        return usuarioService.findAll(filtro,pageable);
     }
 
     @PostMapping

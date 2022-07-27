@@ -9,6 +9,7 @@ public final class Message {
 
     public static final String saldoCarteiraNotNull = "O saldo da carteira não pode ser nulo!";
 
+    public static final String sexoNotBlank = "O sexo não pode ser vazio ou nulo!";
     public static final String sexoValidate = "O sexo informado não corresponde aos aceitos pela API! [Feminino(F), Masculino(M), Não informado(N)]";
 
     public static final String cpfNotBlank = "O cpf não pode ser vazio ou nulo!";

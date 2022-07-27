@@ -30,8 +30,9 @@ public abstract class Pessoa {
     @Pattern(regexp = "(^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$)|(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)", message = Message.cpfInvalidFormat)
     private String cpf;
 
+    @NotBlank(message = Message.sexoNotBlank)
     @SexoValidate
-    private Character sexo;
+    private String sexo;
 
     @NotBlank(message = Message.telefoneNotBlank)
     private String telefone;

@@ -3,10 +3,14 @@ package com.iberthy.backend.service;
 import com.iberthy.backend.model.Usuario;
 import com.iberthy.backend.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -15,16 +19,22 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Page<Usuario> findAll(Pageable pageable){
-        return usuarioRepository.findAllActive(pageable);
+    public Page<Usuario> findAll(Usuario filtro, Pageable pageable){
+
+        var matcher = ExampleMatcher.matching().withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        var example = Example.of(filtro,matcher);
+
+        if(filtro.getAtivo() != false){
+            filtro.setAtivo(true);
+        }
+
+        return usuarioRepository.findAll(example, pageable);
     }
 
     public Usuario findById(Long id){
         return usuarioRepository.findByIdActive(id);
-    }
-
-    public Usuario findByNome(String nome){
-        return usuarioRepository.findByNomeContaining(nome);
     }
 
     @Transactional
