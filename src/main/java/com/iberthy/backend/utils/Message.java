@@ -3,6 +3,8 @@ package com.iberthy.backend.utils;
 public final class Message {
     public static final String nomeNotBlank = "O nome não pode ser vazio ou nulo!";
 
+    public static final String descricaoNotBlank = "A descrição não pode ser vazia ou nula!";
+
     public static final String telefoneNotBlank = "O telefone não pode ser vazio ou nulo!";
 
     public static final String loginNotBlank = "O login não pode ser vazio ou nulo!";
@@ -20,4 +22,8 @@ public final class Message {
 
     public static final String senhaNotBlank = "A senha não pode ser vazio ou nula!";
     public static final String senhaInvalidFormat = "A senha deve conter no mínimo 6 caracteres, pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial!";
+
+    public static final String precoNotNull = "O preço do produto não pode nulo!";
+    public static final String precoMin = "O preço do produto não pode ser menor que zero!";
+
 }

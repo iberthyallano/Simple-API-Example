@@ -1,6 +1,6 @@
 package com.iberthy.backend.model.abstracts;
 
-import com.iberthy.backend.model.validations.sexo.SexoValidate;
+import com.iberthy.backend.model.validation.sexo.SexoValidate;
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,10 +18,7 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public abstract class Pessoa {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+public abstract class Pessoa extends AbstractEntity {
 
     @NotBlank(message = Message.nomeNotBlank)
     public String nome;
@@ -41,5 +38,4 @@ public abstract class Pessoa {
     @Email(message = Message.emailInvalidFormat)
     private String email;
 
-    private Boolean ativo = true;
 }

@@ -1,4 +1,4 @@
-package com.iberthy.backend.model.validations.sexo;
+package com.iberthy.backend.model.validation.sexo;
 
 import com.iberthy.backend.utils.Message;
 
