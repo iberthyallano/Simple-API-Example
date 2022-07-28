@@ -1,4 +1,4 @@
-package com.iberthy.backend.controller.dto;
+package com.iberthy.backend.controller.dto.pedido;
 
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;

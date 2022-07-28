@@ -1,7 +1,8 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.controller.dto.RequestItemPedidoDTO;
-import com.iberthy.backend.controller.dto.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.pedido.RequestItemPedidoDTO;
+import com.iberthy.backend.controller.dto.pedido.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.pedido.RequestStatusPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.ItemPedido;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
 import com.iberthy.backend.domain.enums.StatusPedido;
@@ -38,11 +39,6 @@ public class PedidoServiceImplement implements PedidoService {
     private ProdutoService produtoService;
 
     @Override
-    public Page<Pedido> findAll(RequestPedidoDTO filter, Pageable pageable) {
-       return null;
-    }
-
-    @Override
     public Page<Pedido> findAllByCliente(Long clienteId, Pageable pageable) {
         var cliente = clienteService.findById(clienteId);
 
@@ -77,6 +73,20 @@ public class PedidoServiceImplement implements PedidoService {
         return pedido;
     }
 
+    @Override
+    @Transactional
+    public Pedido alterarStatus(Long id, RequestStatusPedidoDTO requestStatusPedidoDTO) {
+        var pedido = pedidoRespository.findByIdFetchItens(id);
+
+        if(pedido == null){throw new GenericException(Message.pedidoInvalidId);}
+
+        var status = requestStatusPedidoDTO.transformIntoStatusPedido(requestStatusPedidoDTO);
+
+        pedido.setStatus(status);
+
+        return  pedidoRespository.save(pedido);
+    }
+
     private List<ItemPedido> converterItems(Pedido pedido, List<RequestItemPedidoDTO> requestItemPedidoDTOList){
 
         if(requestItemPedidoDTOList.isEmpty()){throw new GenericException(Message.notSavePedidoAndItemsIsEmpty);}
@@ -96,10 +106,6 @@ public class PedidoServiceImplement implements PedidoService {
 
     }
 
-    @Override
-    public Pedido alterarStatus(Long id, RequestPedidoDTO requestPedidoDTO) {
-        return null;
-    }
 
 
 }

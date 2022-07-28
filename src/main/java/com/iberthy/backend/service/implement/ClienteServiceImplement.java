@@ -53,6 +53,7 @@ public class ClienteServiceImplement implements ClienteService {
         if(clienteDb == null){throw new GenericException(Message.clienteInvalidId);}
 
         var cliente = requestClienteDTO.transformIntoCliente(requestClienteDTO);
+
         cliente.setId(clienteDb.getId());
 
         return clienteRepository.save(cliente);
@@ -66,6 +67,7 @@ public class ClienteServiceImplement implements ClienteService {
         if(clienteDb == null){throw new GenericException(Message.clienteInvalidId);}
 
         clienteDb.setAtivo(false);
+
         return clienteRepository.save(clienteDb);
     }
 

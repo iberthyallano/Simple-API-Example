@@ -5,7 +5,6 @@ import com.iberthy.backend.domain.abstracts.AbstractEntity;
 import com.iberthy.backend.domain.enums.StatusPedido;
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

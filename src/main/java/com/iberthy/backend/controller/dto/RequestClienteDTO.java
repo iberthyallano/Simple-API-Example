@@ -1,5 +1,6 @@
 package com.iberthy.backend.controller.dto;
 
+import com.iberthy.backend.controller.dto.abstracts.PessoaDTO;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.domain.enums.Sexo;
 import com.iberthy.backend.utils.Message;
@@ -13,10 +14,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Data
 public class RequestClienteDTO extends PessoaDTO {
-    
+
     @NotNull(message = Message.saldoCarteiraNotNull)
     private Double saldoCarteira;
-    
+
     public Cliente transformIntoCliente(RequestClienteDTO clienteDTO){
 
         var cliente = new Cliente();

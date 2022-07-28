@@ -1,6 +1,7 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.controller.dto.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.pedido.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.pedido.RequestStatusPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
 import com.iberthy.backend.service.PedidoService;
 import com.iberthy.backend.utils.Message;
@@ -20,11 +21,6 @@ public class PedidoController {
 
     @Autowired
     private PedidoService pedidoService;
-
-//    @GetMapping
-//    public Page<Usuario> listarUsuarios(Usuario filtro, Pageable pageable){
-//        return usuarioService.findAll(filtro,pageable);
-//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -46,10 +42,10 @@ public class PedidoController {
         return pedidoService.findAllByCliente(clienteId, pageable);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Usuario> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody Usuario usuario){
-//        var usuarioDb= usuarioService.edite(id, usuario);
-//        return usuarioDb != null ? ResponseEntity.ok(usuarioDb) : ResponseEntity.notFound().build();
-//    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<Pedido> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestStatusPedidoDTO status){
+        pedidoService.alterarStatus(id, status);
+        return ResponseEntity.noContent().build();
+    }
 
 }

@@ -49,6 +49,7 @@ public class ProdutoServiceImplement implements ProdutoService {
         if(produtoDb == null){throw new GenericException(Message.produtoInvalidId);}
 
         produto.setId(produtoDb.getId());
+
         return this.save(produto);
     }
 
@@ -59,6 +60,7 @@ public class ProdutoServiceImplement implements ProdutoService {
         if(produtoDb == null){throw new GenericException(Message.produtoInvalidId);}
 
         produtoDb.setAtivo(false);
+
         return produtoRepository.save(produtoDb);
     }
 

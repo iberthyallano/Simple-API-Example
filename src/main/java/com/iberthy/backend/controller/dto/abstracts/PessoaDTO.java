@@ -1,6 +1,5 @@
-package com.iberthy.backend.controller.dto;
+package com.iberthy.backend.controller.dto.abstracts;
 
-import com.iberthy.backend.domain.enums.Sexo;
 import com.iberthy.backend.utils.Message;
 import com.iberthy.backend.validation.sexo.SexoValidate;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PessoaDTO {
+public abstract class PessoaDTO {
 
     @NotBlank(message = Message.nomeNotBlank)
     public String nome;

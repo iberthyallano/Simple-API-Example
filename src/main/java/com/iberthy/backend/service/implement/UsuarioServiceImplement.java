@@ -52,7 +52,9 @@ public class UsuarioServiceImplement implements UsuarioService {
         if(usuarioDb == null){throw new GenericException(Message.usuarioInvalidId);}
 
         var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
+
         usuario.setId(usuarioDb.getId());
+
         return usuarioRepository.save(usuario);
     }
 
@@ -64,6 +66,7 @@ public class UsuarioServiceImplement implements UsuarioService {
         if(usuarioDb == null){throw new GenericException(Message.usuarioInvalidId);}
 
         usuarioDb.setAtivo(false);
+
         return usuarioRepository.save(usuarioDb);
     }
 }

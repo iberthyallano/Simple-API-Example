@@ -1,7 +1,5 @@
 package com.iberthy.backend.utils;
 
-import com.iberthy.backend.domain.enums.Sexo;
-
 public final class Message {
     public static final String nomeNotBlank = "O nome não pode ser vazio ou nulo!";
 
@@ -35,13 +33,14 @@ public final class Message {
 
     public static final String sexoValidate = "O sexo informado não corresponde aos aceitos pela API! [ Feminino (FEMININO), Masculino (MASCULINO), Não identificado (NAO_IDENTIFICADO)]";
 
-    public static final String statusPedidoValidate = "O satatus do pedido não corresponde aos aceitos pela API! [Feminino(F), Masculino(M), Não informado(N)]";
+    public static final String statusPedidoValidate = "O satatus do pedido não corresponde aos aceitos pela API! [Realizado (REALIZADO), Cancelado (CANCELADO)]";
 
 
     public static final String clienteNotFoud = "Cliente não encontrado!";
     public static final String clienteInvalidId = "O ID do cliente é invalido!";
 
     public static final String pedidoNotFoud = "Pedido não encontrado!";
+    public static final String pedidoInvalidId = "O ID do pedido é invalido!";
     public static final String notSavePedidoAndItemsIsEmpty = "Não é possível realizar um pedido que não contenha itens!";
 
     public static final String produtoNotFoud = "Pedido não encontrado!";
