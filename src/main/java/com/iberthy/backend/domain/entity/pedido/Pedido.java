@@ -2,6 +2,7 @@ package com.iberthy.backend.domain.entity.pedido;
 
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.domain.abstracts.AbstractEntity;
+import com.iberthy.backend.domain.enums.StatusPedido;
 import com.iberthy.backend.utils.Message;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,9 @@ public class Pedido extends AbstractEntity {
     private Double valorTotal;
 
     private LocalDateTime dataPedido;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
 
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;

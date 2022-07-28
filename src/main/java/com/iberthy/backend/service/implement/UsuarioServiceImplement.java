@@ -1,5 +1,6 @@
 package com.iberthy.backend.service.implement;
 
+import com.iberthy.backend.controller.dto.RequestUsuarioDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.UsuarioRepository;
@@ -19,18 +20,14 @@ public class UsuarioServiceImplement implements UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public Page<Usuario> findAll(Usuario filtro, Pageable pageable){
+    public Page<Usuario> findAll(RequestUsuarioDTO filtro, Pageable pageable){
 
         var matcher = ExampleMatcher.matching().withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
-        var example = Example.of(filtro,matcher);
+        var usuario = filtro.transformIntoUsuario(filtro);
 
-        if(filtro.getAtivo() != false){
-            filtro.setAtivo(true);
-        }
-
-        return usuarioRepository.findAll(example, pageable);
+        return usuarioRepository.findAll(Example.of(usuario,matcher), pageable);
     }
 
     @Override
@@ -40,19 +37,23 @@ public class UsuarioServiceImplement implements UsuarioService {
 
     @Override
     @Transactional
-    public Usuario save(Usuario usuario){
+    public Usuario save(RequestUsuarioDTO requestUsuarioDTO){
+
+        var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
+
         return usuarioRepository.save(usuario);
     }
 
     @Override
     @Transactional
-    public Usuario edite(Long id, Usuario usuario){
+    public Usuario edite(Long id, RequestUsuarioDTO requestUsuarioDTO){
         var usuarioDb = usuarioRepository.findByIdActive(id);
 
         if(usuarioDb == null){throw new GenericException(Message.usuarioInvalidId);}
 
+        var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
         usuario.setId(usuarioDb.getId());
-        return this.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     @Override

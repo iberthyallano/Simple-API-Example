@@ -1,5 +1,6 @@
 package com.iberthy.backend.service.implement;
 
+import com.iberthy.backend.controller.dto.RequestClienteDTO;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.ClienteRepository;
@@ -20,17 +21,14 @@ public class ClienteServiceImplement implements ClienteService {
     private ClienteRepository clienteRepository;
 
     @Override
-    public Page<Cliente> findAll(Cliente filtro, Pageable pageable){
+    public Page<Cliente> findAll(RequestClienteDTO filtro, Pageable pageable){
+
         var matcher = ExampleMatcher.matching().withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
-        var example = Example.of(filtro,matcher);
+        var cliente = filtro.transformIntoCliente(filtro);
 
-        if(filtro.getAtivo() != false){
-            filtro.setAtivo(true);
-        }
-
-        return clienteRepository.findAll(example, pageable);
+        return clienteRepository.findAll(Example.of(cliente,matcher), pageable);
     }
 
     @Override
@@ -40,19 +38,24 @@ public class ClienteServiceImplement implements ClienteService {
 
     @Override
     @Transactional
-    public Cliente save(Cliente cliente){
+    public Cliente save(RequestClienteDTO requestClienteDTO){
+
+        var cliente = requestClienteDTO.transformIntoCliente(requestClienteDTO);
+
         return clienteRepository.save(cliente);
     }
 
     @Override
     @Transactional
-    public Cliente edite(Long id, Cliente cliente){
+    public Cliente edite(Long id, RequestClienteDTO requestClienteDTO){
         var clienteDb = clienteRepository.findByIdActive(id);
 
         if(clienteDb == null){throw new GenericException(Message.clienteInvalidId);}
 
+        var cliente = requestClienteDTO.transformIntoCliente(requestClienteDTO);
         cliente.setId(clienteDb.getId());
-        return this.save(cliente);
+
+        return clienteRepository.save(cliente);
     }
 
     @Override
@@ -63,7 +66,7 @@ public class ClienteServiceImplement implements ClienteService {
         if(clienteDb == null){throw new GenericException(Message.clienteInvalidId);}
 
         clienteDb.setAtivo(false);
-        return this.save(clienteDb);
+        return clienteRepository.save(clienteDb);
     }
 
 }

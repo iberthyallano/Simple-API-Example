@@ -4,6 +4,7 @@ import com.iberthy.backend.controller.dto.RequestItemPedidoDTO;
 import com.iberthy.backend.controller.dto.RequestPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.ItemPedido;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
+import com.iberthy.backend.domain.enums.StatusPedido;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.Pedido.ItemPedidoRepository;
 import com.iberthy.backend.repository.Pedido.PedidoRespository;
@@ -66,6 +67,7 @@ public class PedidoServiceImplement implements PedidoService {
         pedido.setValorTotal(requestPedidoDTO.getValorTotal());
         pedido.setDataPedido(LocalDateTime.now());
         pedido.setCliente(cliente);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         var items = converterItems(pedido, requestPedidoDTO.getItems());
         pedidoRespository.save(pedido);

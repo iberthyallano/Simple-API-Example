@@ -20,7 +20,7 @@ public class Usuario extends Pessoa {
     private String login;
 
     @NotBlank(message = Message.senhaNotBlank)
-    @Pattern(regexp = "(?=^.{6,}$)((?=.*\\w)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[|!\"$%&\\/\\(\\)\\?\\^\\'\\\\\\+\\-\\*]))^.*", message = Message.senhaInvalidFormat)
+    @Pattern(regexp = Message.senhaRegex, message = Message.senhaInvalidFormat)
     private String senha;
 
 }

@@ -1,5 +1,6 @@
 package com.iberthy.backend.controller;
 
+import com.iberthy.backend.controller.dto.RequestUsuarioDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.service.UsuarioService;
 import com.iberthy.backend.utils.Message;
@@ -21,13 +22,13 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    public Page<Usuario> listarUsuarios(Usuario filtro,Pageable pageable){
+    public Page<Usuario> listarUsuarios(RequestUsuarioDTO filtro, Pageable pageable){
         return usuarioService.findAll(filtro,pageable);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario salvarUsuario(@Valid @RequestBody Usuario usuario){
+    public Usuario salvarUsuario(@Valid @RequestBody RequestUsuarioDTO usuario){
         return usuarioService.save(usuario);
     }
 
@@ -41,7 +42,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestUsuarioDTO usuario){
         return ResponseEntity.ok(usuarioService.edite(id, usuario));
     }
 

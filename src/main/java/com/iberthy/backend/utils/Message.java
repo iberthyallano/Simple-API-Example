@@ -1,5 +1,7 @@
 package com.iberthy.backend.utils;
 
+import com.iberthy.backend.domain.enums.Sexo;
+
 public final class Message {
     public static final String nomeNotBlank = "O nome não pode ser vazio ou nulo!";
 
@@ -11,15 +13,14 @@ public final class Message {
 
     public static final String saldoCarteiraNotNull = "O saldo da carteira não pode ser nulo!";
 
-    public static final String sexoNotBlank = "O sexo não pode ser vazio ou nulo!";
-    public static final String sexoValidate = "O sexo informado não corresponde aos aceitos pela API! [Feminino(F), Masculino(M), Não informado(N)]";
-
+    public static final String cpfRegex = "(^\\d{3}\\.\\d{3}\\.\\d{3}\\-\\d{2}$)|(^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$)";
     public static final String cpfNotBlank = "O cpf não pode ser vazio ou nulo!";
     public static final String cpfInvalidFormat = "O cpf está com o formato inválido! (Esperado: 000.000.000-00)";
 
     public static final String emailNotBlank = "O e-mail não pode ser vazio ou nulo!";
     public static final String emailInvalidFormat = "O e-mail está com o formato inválido! (Esperado: exemplo@hotmail.com)";
 
+    public static final String senhaRegex = "(?=^.{6,}$)((?=.*\\w)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[|!\"$%&\\/\\(\\)\\?\\^\\'\\\\\\+\\-\\*]))^.*";
     public static final String senhaNotBlank = "A senha não pode ser vazio ou nula!";
     public static final String senhaInvalidFormat = "A senha deve conter no mínimo 6 caracteres, pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial!";
 
@@ -31,6 +32,10 @@ public final class Message {
 
     public static final String valorTotalNotNull = "O valor total não pode nulo!";
     public static final String valorTotalMin = "O valor total não pode ser menor que zero!";
+
+    public static final String sexoValidate = "O sexo informado não corresponde aos aceitos pela API! [ Feminino (FEMININO), Masculino (MASCULINO), Não identificado (NAO_IDENTIFICADO)]";
+
+    public static final String statusPedidoValidate = "O satatus do pedido não corresponde aos aceitos pela API! [Feminino(F), Masculino(M), Não informado(N)]";
 
 
     public static final String clienteNotFoud = "Cliente não encontrado!";
