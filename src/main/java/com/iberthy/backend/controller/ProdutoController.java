@@ -2,12 +2,14 @@ package com.iberthy.backend.controller;
 
 import com.iberthy.backend.domain.entity.Produto;
 import com.iberthy.backend.service.ProdutoService;
+import com.iberthy.backend.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -25,26 +27,28 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto salvarProduto(@RequestBody Produto produto){
+    public Produto salvarProduto(@Valid @RequestBody Produto produto){
         return produtoService.save(produto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Produto> buscarProdutoById(@PathVariable Long id){
         var produtoDb = produtoService.findById(id);
-        return produtoDb != null ? ResponseEntity.ok(produtoDb) : ResponseEntity.notFound().build();
+
+        if(produtoDb == null){throw new ResponseStatusException(HttpStatus.NOT_FOUND, Message.produtoNotFoud);}
+
+        return ResponseEntity.ok(produtoDb);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> editarProdutoById(@PathVariable Long id, @RequestBody Produto produto){
-        var produtoDb= produtoService.edite(id, produto);
-        return produtoDb != null ? ResponseEntity.ok(produtoDb) : ResponseEntity.notFound().build();
+    public ResponseEntity<Produto> editarProdutoById(@PathVariable Long id, @Valid @RequestBody Produto produto){
+        return ResponseEntity.ok(produtoService.edite(id, produto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProdutoById(@PathVariable Long id){
-        var produtoDb= produtoService.delete(id);
-        return produtoDb != null ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        produtoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

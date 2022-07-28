@@ -1,8 +1,10 @@
 package com.iberthy.backend.service.implement;
 
 import com.iberthy.backend.domain.entity.Usuario;
+import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.UsuarioRepository;
 import com.iberthy.backend.service.UsuarioService;
+import com.iberthy.backend.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -47,12 +49,10 @@ public class UsuarioServiceImplement implements UsuarioService {
     public Usuario edite(Long id, Usuario usuario){
         var usuarioDb = usuarioRepository.findByIdActive(id);
 
-        if(usuarioDb != null){
-            usuario.setId(usuarioDb.getId());
-            return this.save(usuario);
-        }
+        if(usuarioDb == null){throw new GenericException(Message.usuarioInvalidId);}
 
-        return null;
+        usuario.setId(usuarioDb.getId());
+        return this.save(usuario);
     }
 
     @Override
@@ -60,11 +60,9 @@ public class UsuarioServiceImplement implements UsuarioService {
     public Usuario delete(Long id){
         var usuarioDb = usuarioRepository.findByIdActive(id);
 
-        if(usuarioDb != null){
-            usuarioDb.setAtivo(false);
-            return usuarioRepository.save(usuarioDb);
-        }
+        if(usuarioDb == null){throw new GenericException(Message.usuarioInvalidId);}
 
-        return null;
+        usuarioDb.setAtivo(false);
+        return usuarioRepository.save(usuarioDb);
     }
 }

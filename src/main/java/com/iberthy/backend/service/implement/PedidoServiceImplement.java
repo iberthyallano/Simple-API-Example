@@ -1,7 +1,7 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.controller.dto.ItemPedidoDTO;
-import com.iberthy.backend.controller.dto.PedidoDTO;
+import com.iberthy.backend.controller.dto.RequestItemPedidoDTO;
+import com.iberthy.backend.controller.dto.RequestPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.ItemPedido;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
 import com.iberthy.backend.exception.GenericException;
@@ -12,8 +12,6 @@ import com.iberthy.backend.service.PedidoService;
 import com.iberthy.backend.service.ProdutoService;
 import com.iberthy.backend.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,28 +37,37 @@ public class PedidoServiceImplement implements PedidoService {
     private ProdutoService produtoService;
 
     @Override
-    public Page<Pedido> findAll(PedidoDTO filter, Pageable pageable) {
+    public Page<Pedido> findAll(RequestPedidoDTO filter, Pageable pageable) {
        return null;
     }
 
     @Override
+    public Page<Pedido> findAllByCliente(Long clienteId, Pageable pageable) {
+        var cliente = clienteService.findById(clienteId);
+
+        if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
+
+        return pedidoRespository.findByCliente(cliente,pageable);
+    }
+
+    @Override
     public Pedido findById(Long id) {
-        return pedidoRespository.findById(id).get();
+        return pedidoRespository.findByIdFetchItens(id);
     }
 
     @Override
     @Transactional
-    public Pedido save(PedidoDTO pedidoDTO) {
+    public Pedido save(RequestPedidoDTO requestPedidoDTO) {
         var pedido = new Pedido();
-        var cliente = clienteService.findById(pedidoDTO.getCliente());
+        var cliente = clienteService.findById(requestPedidoDTO.getCliente());
 
-        if(cliente == null){throw new GenericException(Message.invalidClienteId);}
+        if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
 
-        pedido.setTotal(pedidoDTO.getTotal());
+        pedido.setValorTotal(requestPedidoDTO.getValorTotal());
         pedido.setDataPedido(LocalDateTime.now());
         pedido.setCliente(cliente);
 
-        var items = converterItems(pedido, pedidoDTO.getItems());
+        var items = converterItems(pedido, requestPedidoDTO.getItems());
         pedidoRespository.save(pedido);
         itemPedidoRepository.saveAll(items);
         pedido.setItens(items);
@@ -68,14 +75,14 @@ public class PedidoServiceImplement implements PedidoService {
         return pedido;
     }
 
-    private List<ItemPedido> converterItems(Pedido pedido, List<ItemPedidoDTO> items){
+    private List<ItemPedido> converterItems(Pedido pedido, List<RequestItemPedidoDTO> requestItemPedidoDTOList){
 
-        if(items.isEmpty()){throw new GenericException(Message.notSavePedidoAndItemsIsEmpty);}
+        if(requestItemPedidoDTOList.isEmpty()){throw new GenericException(Message.notSavePedidoAndItemsIsEmpty);}
 
-        return items.stream().map( dto -> {
+        return requestItemPedidoDTOList.stream().map( dto -> {
             var produto = produtoService.findById(dto.getProduto());
 
-            if(produto == null){throw new GenericException(Message.invalidProdutoId + "[id: "+dto.getProduto()+"]");}
+            if(produto == null){throw new GenericException(Message.produtoInvalidId + "[id: "+dto.getProduto()+"]");}
 
             var item = new ItemPedido();
             item.setQuantidade(dto.getQuantidade());
@@ -88,7 +95,9 @@ public class PedidoServiceImplement implements PedidoService {
     }
 
     @Override
-    public Pedido edite(Long id, PedidoDTO pedidoDTO) {
+    public Pedido alterarStatus(Long id, RequestPedidoDTO requestPedidoDTO) {
         return null;
     }
+
+
 }

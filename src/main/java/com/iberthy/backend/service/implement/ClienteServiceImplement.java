@@ -1,8 +1,10 @@
 package com.iberthy.backend.service.implement;
 
 import com.iberthy.backend.domain.entity.Cliente;
+import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.ClienteRepository;
 import com.iberthy.backend.service.ClienteService;
+import com.iberthy.backend.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -47,12 +49,10 @@ public class ClienteServiceImplement implements ClienteService {
     public Cliente edite(Long id, Cliente cliente){
         var clienteDb = clienteRepository.findByIdActive(id);
 
-        if(clienteDb != null){
-            cliente.setId(clienteDb.getId());
-            return this.save(cliente);
-        }
+        if(clienteDb == null){throw new GenericException(Message.clienteInvalidId);}
 
-        return null;
+        cliente.setId(clienteDb.getId());
+        return this.save(cliente);
     }
 
     @Override
@@ -60,12 +60,10 @@ public class ClienteServiceImplement implements ClienteService {
     public Cliente delete(Long id){
         var clienteDb = clienteRepository.findByIdActive(id);
 
-        if(clienteDb != null){
-            clienteDb.setAtivo(false);
-            return clienteRepository.save(clienteDb);
-        }
+        if(clienteDb == null){throw new GenericException(Message.clienteInvalidId);}
 
-        return null;
+        clienteDb.setAtivo(false);
+        return this.save(clienteDb);
     }
 
 }

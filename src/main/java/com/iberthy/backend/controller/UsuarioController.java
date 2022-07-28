@@ -2,12 +2,14 @@ package com.iberthy.backend.controller;
 
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.service.UsuarioService;
+import com.iberthy.backend.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -32,18 +34,20 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarUsuarioById(@PathVariable Long id){
         var usuarioDb = usuarioService.findById(id);
-        return usuarioDb != null ? ResponseEntity.ok(usuarioDb) : ResponseEntity.notFound().build();
+
+        if(usuarioDb == null){throw new ResponseStatusException(HttpStatus.NOT_FOUND, Message.usuarioNotFoud);}
+
+        return ResponseEntity.ok(usuarioDb);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody Usuario usuario){
-        var usuarioDb= usuarioService.edite(id, usuario);
-        return usuarioDb != null ? ResponseEntity.ok(usuarioDb) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(usuarioService.edite(id, usuario));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuarioById(@PathVariable Long id){
-        var usuarioDb= usuarioService.delete(id);
-        return usuarioDb != null ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        usuarioService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -2,12 +2,14 @@ package com.iberthy.backend.controller;
 
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.service.ClienteService;
+import com.iberthy.backend.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -25,25 +27,29 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente salvarCliente(@RequestBody Cliente cliente){
+    public Cliente salvarCliente(@Valid @RequestBody Cliente cliente){
         return clienteService.save(cliente);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarClienteById(@PathVariable Long id){
         var clienteDb = clienteService.findById(id);
-        return clienteDb != null ? ResponseEntity.ok(clienteDb) : ResponseEntity.notFound().build();
+
+        if(clienteDb == null){throw new ResponseStatusException(HttpStatus.NOT_FOUND, Message.clienteNotFoud);}
+
+        return ResponseEntity.ok(clienteDb);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> editarClienteById(@PathVariable Long id, @RequestBody Cliente cliente){
-        var clienteDb= clienteService.edite(id, cliente);
-        return clienteDb != null ? ResponseEntity.ok(clienteDb) : ResponseEntity.notFound().build();
+    public ResponseEntity<Cliente> editarClienteById(@PathVariable Long id, @Valid @RequestBody Cliente cliente){
+        return ResponseEntity.ok(clienteService.edite(id, cliente));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClienteById(@PathVariable Long id){
-        var clienteDb= clienteService.delete(id);
-        return clienteDb != null ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+
+        clienteService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

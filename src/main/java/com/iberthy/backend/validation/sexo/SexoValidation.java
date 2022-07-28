@@ -12,7 +12,11 @@ public class SexoValidation implements ConstraintValidator<SexoValidate, String>
     @Override
     public boolean isValid(String sexo, ConstraintValidatorContext constraintValidatorContext) {
 
-        if(!sexo.equals("F") && !sexo.equals("M") && !sexo.equals("N")){return false;}
+        if(sexo ==  null){
+            return false;
+        }else if(!sexo.equals("F") && !sexo.equals("M") && !sexo.equals("N")){
+            return false;
+        }
 
         return true;
     }

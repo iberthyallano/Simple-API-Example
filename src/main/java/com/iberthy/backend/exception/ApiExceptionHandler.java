@@ -35,6 +35,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ ConstraintViolationException.class })
     public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException ex, final WebRequest request) {
 
+//      Gera um erro casso uma constrait do bean validation for violada
+
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
         List<ErroException.Campo> campos = new ArrayList<>();
@@ -54,11 +56,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return this.handleExceptionInternal(ex, erro, null, status, request);
     }
 
-    /*
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-//        Se ouver um valid na frente do objeto que vai ser validado no argumento da requisição, ele chama essa função
+//      Se ouver um valid na frente do objeto que vai ser validado no argumento da requisição, ele chama essa função
+//      Com isso eu posso fazer duas validações distintas, uma no DTO que é recebido e outra no objeto que vai ser salvo, assim temos uma dupla validação
 
         List<ErroException.Campo> campos = new ArrayList<>();
         for( ObjectError error : ex.getBindingResult().getAllErrors() ){
@@ -76,6 +78,5 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         return this.handleExceptionInternal(ex, erro, headers, status, request);
     }
-* */
 
 }

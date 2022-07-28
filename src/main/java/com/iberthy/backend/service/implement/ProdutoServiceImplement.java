@@ -1,8 +1,10 @@
 package com.iberthy.backend.service.implement;
 
 import com.iberthy.backend.domain.entity.Produto;
+import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.ProdutoRepository;
 import com.iberthy.backend.service.ProdutoService;
+import com.iberthy.backend.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -44,24 +46,20 @@ public class ProdutoServiceImplement implements ProdutoService {
     public Produto edite(Long id, Produto produto){
         var produtoDb = produtoRepository.findByIdActive(id);
 
-        if(produtoDb != null){
-            produto.setId(produtoDb.getId());
-            return this.save(produto);
-        }
+        if(produtoDb == null){throw new GenericException(Message.produtoInvalidId);}
 
-        return null;
+        produto.setId(produtoDb.getId());
+        return this.save(produto);
     }
 
     @Transactional
     public Produto delete(Long id){
         var produtoDb = produtoRepository.findByIdActive(id);
 
-        if(produtoDb != null){
-            produtoDb.setAtivo(false);
-            return produtoRepository.save(produtoDb);
-        }
+        if(produtoDb == null){throw new GenericException(Message.produtoInvalidId);}
 
-        return null;
+        produtoDb.setAtivo(false);
+        return produtoRepository.save(produtoDb);
     }
 
 }

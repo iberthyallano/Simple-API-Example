@@ -23,14 +23,26 @@ public final class Message {
     public static final String senhaNotBlank = "A senha não pode ser vazio ou nula!";
     public static final String senhaInvalidFormat = "A senha deve conter no mínimo 6 caracteres, pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial!";
 
-    public static final String precoNotNull = "O preço do produto não pode nulo!";
-    public static final String precoMin = "O preço do produto não pode ser menor que zero!";
+    public static final String precoNotNull = "O preço não pode nulo!";
+    public static final String precoMin = "O preço não pode ser menor que zero!";
+
+    public static final String quantidadeNotNull = "A quantidade não pode nulo!";
+    public static final String quantidadeMin = "A quantidade não pode ser menor que 1!";
+
+    public static final String valorTotalNotNull = "O valor total não pode nulo!";
+    public static final String valorTotalMin = "O valor total não pode ser menor que zero!";
 
 
-    public static final String invalidClienteId = "O ID do cliente é invalido!";
+    public static final String clienteNotFoud = "Cliente não encontrado!";
+    public static final String clienteInvalidId = "O ID do cliente é invalido!";
 
-    public static final String invalidProdutoId = "O ID do produto é invalido!";
-
+    public static final String pedidoNotFoud = "Pedido não encontrado!";
     public static final String notSavePedidoAndItemsIsEmpty = "Não é possível realizar um pedido que não contenha itens!";
+
+    public static final String produtoNotFoud = "Pedido não encontrado!";
+    public static final String produtoInvalidId = "O ID do produto é invalido!";
+
+    public static final String usuarioNotFoud = "Cliente não encontrado!";
+    public static final String usuarioInvalidId = "O ID do cliente é invalido!";
 
 }
