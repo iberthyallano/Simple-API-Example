@@ -25,7 +25,7 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente salvarCliente(@Valid @RequestBody Cliente cliente){
+    public Cliente salvarCliente(@RequestBody Cliente cliente){
         return clienteService.save(cliente);
     }
 
@@ -36,7 +36,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> editarClienteById(@PathVariable Long id, @Valid @RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> editarClienteById(@PathVariable Long id, @RequestBody Cliente cliente){
         var clienteDb= clienteService.edite(id, cliente);
         return clienteDb != null ? ResponseEntity.ok(clienteDb) : ResponseEntity.notFound().build();
     }

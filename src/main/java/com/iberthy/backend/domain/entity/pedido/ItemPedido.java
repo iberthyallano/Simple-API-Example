@@ -3,11 +3,13 @@ package com.iberthy.backend.domain.entity.pedido;
 import com.iberthy.backend.domain.entity.Produto;
 import com.iberthy.backend.domain.abstracts.AbstractEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

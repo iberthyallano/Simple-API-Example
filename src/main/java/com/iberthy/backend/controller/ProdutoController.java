@@ -25,7 +25,7 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto salvarProduto(@Valid @RequestBody Produto produto){
+    public Produto salvarProduto(@RequestBody Produto produto){
         return produtoService.save(produto);
     }
 
@@ -36,7 +36,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> editarProdutoById(@PathVariable Long id, @Valid @RequestBody Produto produto){
+    public ResponseEntity<Produto> editarProdutoById(@PathVariable Long id, @RequestBody Produto produto){
         var produtoDb= produtoService.edite(id, produto);
         return produtoDb != null ? ResponseEntity.ok(produtoDb) : ResponseEntity.notFound().build();
     }

@@ -26,4 +26,11 @@ public final class Message {
     public static final String precoNotNull = "O preço do produto não pode nulo!";
     public static final String precoMin = "O preço do produto não pode ser menor que zero!";
 
+
+    public static final String invalidClienteId = "O ID do cliente é invalido!";
+
+    public static final String invalidProdutoId = "O ID do produto é invalido!";
+
+    public static final String notSavePedidoAndItemsIsEmpty = "Não é possível realizar um pedido que não contenha itens!";
+
 }

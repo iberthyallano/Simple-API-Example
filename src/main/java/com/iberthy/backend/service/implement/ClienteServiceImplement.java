@@ -19,7 +19,6 @@ public class ClienteServiceImplement implements ClienteService {
 
     @Override
     public Page<Cliente> findAll(Cliente filtro, Pageable pageable){
-
         var matcher = ExampleMatcher.matching().withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
