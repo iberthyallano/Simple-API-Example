@@ -3,7 +3,7 @@ package com.iberthy.backend.controller.dto;
 import com.iberthy.backend.controller.dto.abstracts.PessoaDTO;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.domain.enums.Sexo;
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

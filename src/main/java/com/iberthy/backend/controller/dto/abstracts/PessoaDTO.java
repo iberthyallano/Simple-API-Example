@@ -1,6 +1,6 @@
 package com.iberthy.backend.controller.dto.abstracts;
 
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 import com.iberthy.backend.validation.sexo.SexoValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;

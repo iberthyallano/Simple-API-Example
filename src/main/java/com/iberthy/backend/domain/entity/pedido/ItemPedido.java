@@ -2,7 +2,7 @@ package com.iberthy.backend.domain.entity.pedido;
 
 import com.iberthy.backend.domain.entity.Produto;
 import com.iberthy.backend.domain.abstracts.AbstractEntity;
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -12,7 +12,7 @@ import com.iberthy.backend.repository.Pedido.PedidoRespository;
 import com.iberthy.backend.service.ClienteService;
 import com.iberthy.backend.service.PedidoService;
 import com.iberthy.backend.service.ProdutoService;
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

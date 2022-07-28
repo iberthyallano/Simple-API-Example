@@ -1,6 +1,6 @@
 package com.iberthy.backend.validation.sexo;
 
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

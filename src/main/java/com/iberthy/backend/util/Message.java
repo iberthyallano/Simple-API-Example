@@ -1,4 +1,4 @@
-package com.iberthy.backend.utils;
+package com.iberthy.backend.util;
 
 public final class Message {
     public static final String nomeNotBlank = "O nome não pode ser vazio ou nulo!";

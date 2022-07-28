@@ -1,11 +1,9 @@
 package com.iberthy.backend.controller.dto.pedido;
 
-import com.iberthy.backend.controller.dto.RequestClienteDTO;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
-import com.iberthy.backend.domain.enums.Sexo;
 import com.iberthy.backend.domain.enums.StatusPedido;
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -3,7 +3,7 @@ package com.iberthy.backend.domain.entity.pedido;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.domain.abstracts.AbstractEntity;
 import com.iberthy.backend.domain.enums.StatusPedido;
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

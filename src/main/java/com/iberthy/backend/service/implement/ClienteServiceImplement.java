@@ -5,7 +5,7 @@ import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.ClienteRepository;
 import com.iberthy.backend.service.ClienteService;
-import com.iberthy.backend.utils.Message;
+import com.iberthy.backend.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
