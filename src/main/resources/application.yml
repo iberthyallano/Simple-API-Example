@@ -15,7 +15,3 @@ server:
   port: 8080
   servlet:
     context-path: /
-
-auth-api:
-  username: admin
-  password: admin

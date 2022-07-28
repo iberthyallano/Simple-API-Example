@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +19,6 @@ public class Usuario extends Pessoa {
     private String login;
 
     @NotBlank(message = Message.senhaNotBlank)
-    @Pattern(regexp = Message.senhaRegex, message = Message.senhaInvalidFormat)
     private String senha;
 
 }

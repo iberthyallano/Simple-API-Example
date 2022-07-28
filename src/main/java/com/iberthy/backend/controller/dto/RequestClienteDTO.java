@@ -24,7 +24,13 @@ public class RequestClienteDTO extends PessoaDTO {
 
         cliente.setNome( clienteDTO.getNome());
         cliente.setCpf( clienteDTO.getCpf());
-        cliente.setSexo(Sexo.valueOf(clienteDTO.getSexo()));
+
+        if(clienteDTO.getSexo() != null && !clienteDTO.getSexo().isEmpty()){
+            cliente.setSexo(Sexo.valueOf(clienteDTO.getSexo()));
+        }else{
+            cliente.setSexo(null);
+        }
+
         cliente.setTelefone( clienteDTO.getTelefone());
         cliente.setEmail( clienteDTO.getEmail());
         cliente.setSaldoCarteira( clienteDTO.getSaldoCarteira());

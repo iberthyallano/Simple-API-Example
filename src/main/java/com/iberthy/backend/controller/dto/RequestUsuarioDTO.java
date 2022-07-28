@@ -29,7 +29,13 @@ public class RequestUsuarioDTO extends PessoaDTO {
 
         usuario.setNome( usuarioDTO.getNome());
         usuario.setCpf( usuarioDTO.getCpf());
-        usuario.setSexo(Sexo.valueOf(usuarioDTO.getSexo()));
+
+        if(usuarioDTO.getSexo() != null && !usuarioDTO.getSexo().isEmpty()){
+            usuario.setSexo(Sexo.valueOf(usuarioDTO.getSexo()));
+        }else{
+            usuario.setSexo(null);
+        }
+
         usuario.setTelefone( usuarioDTO.getTelefone());
         usuario.setEmail( usuarioDTO.getEmail());
         usuario.setLogin(usuarioDTO.getLogin());

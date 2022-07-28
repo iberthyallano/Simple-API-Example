@@ -11,13 +11,18 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsuarioServiceImplement implements UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Page<Usuario> findAll(RequestUsuarioDTO filtro, Pageable pageable){
@@ -40,6 +45,8 @@ public class UsuarioServiceImplement implements UsuarioService {
     public Usuario save(RequestUsuarioDTO requestUsuarioDTO){
 
         var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
+
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return usuarioRepository.save(usuario);
     }
