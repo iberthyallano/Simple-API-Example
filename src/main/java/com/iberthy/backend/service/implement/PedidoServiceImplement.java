@@ -55,18 +55,15 @@ public class PedidoServiceImplement implements PedidoService {
     @Override
     @Transactional
     public Pedido save(RequestPedidoDTO requestPedidoDTO) {
-        var pedido = new Pedido();
         var cliente = clienteService.findById(requestPedidoDTO.getCliente());
 
         if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
 
-        pedido.setValorTotal(requestPedidoDTO.getValorTotal());
-        pedido.setDataPedido(LocalDateTime.now());
-        pedido.setCliente(cliente);
-        pedido.setStatus(StatusPedido.REALIZADO);
+        var pedido = requestPedidoDTO.transformIntoPedido(cliente, StatusPedido.REALIZADO, LocalDateTime.now(), requestPedidoDTO);
+
+        pedidoRespository.save(pedido);
 
         var items = converterItems(pedido, requestPedidoDTO.getItems());
-        pedidoRespository.save(pedido);
         itemPedidoRepository.saveAll(items);
         pedido.setItens(items);
 
@@ -96,12 +93,7 @@ public class PedidoServiceImplement implements PedidoService {
 
             if(produto == null){throw new GenericException(Message.produtoInvalidId + "[id: "+dto.getProduto()+"]");}
 
-            var item = new ItemPedido();
-            item.setQuantidade(dto.getQuantidade());
-            item.setPedido(pedido);
-            item.setProduto(produto);
-
-            return item;
+            return dto.transformIntoItemPedido(pedido, produto, dto);
         }).collect(Collectors.toList());
 
     }
