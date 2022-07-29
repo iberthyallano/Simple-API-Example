@@ -11,4 +11,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
     @Query("select u from Usuario u where u.id = :id and u.ativo = true")
     Usuario findByIdActive(Long id);
 
+    @Query("select u from Usuario u where u.login = :login and u.ativo = true")
+    Usuario findByLoginActive(String login);
+
+
 }

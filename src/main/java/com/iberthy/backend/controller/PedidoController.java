@@ -10,12 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'FUNCIONARIO')")
 @RequestMapping("/pedidos")
 public class PedidoController {
 

@@ -26,7 +26,7 @@ public class ProdutoServiceImplement implements ProdutoService {
 
         var example = Example.of(filtro,matcher);
 
-        if(filtro.getAtivo() != false){
+        if(filtro.isAtivo() != false){
             filtro.setAtivo(true);
         }
 

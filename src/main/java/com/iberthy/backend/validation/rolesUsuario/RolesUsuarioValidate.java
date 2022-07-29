@@ -1,4 +1,4 @@
-package com.iberthy.backend.validation.StatusPedido;
+package com.iberthy.backend.validation.rolesUsuario;
 
 import com.iberthy.backend.util.Message;
 
@@ -15,9 +15,9 @@ import static java.lang.annotation.ElementType.PARAMETER;
 @Target( { FIELD, PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = StatusPedidoValidation.class)
-public @interface StatusPedidoValidate {
-    String message() default Message.statusPedidoValidate;
+@Constraint(validatedBy = RolesUsuarioValidation.class)
+public @interface RolesUsuarioValidate {
+    String message() default Message.usuarioInvalidRoles;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

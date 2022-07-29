@@ -1,4 +1,4 @@
-package com.iberthy.backend.validation.StatusPedido;
+package com.iberthy.backend.validation.statusPedido;
 
 import com.iberthy.backend.domain.enums.StatusPedido;
 

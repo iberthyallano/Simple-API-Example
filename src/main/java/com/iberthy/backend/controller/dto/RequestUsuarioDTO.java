@@ -4,12 +4,14 @@ import com.iberthy.backend.controller.dto.abstracts.PessoaDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.domain.enums.Sexo;
 import com.iberthy.backend.util.Message;
+import com.iberthy.backend.validation.rolesUsuario.RolesUsuarioValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +24,9 @@ public class RequestUsuarioDTO extends PessoaDTO {
     @NotBlank(message = Message.senhaNotBlank)
     @Pattern(regexp = Message.senhaRegex, message = Message.senhaInvalidFormat)
     private String senha;
+
+    @RolesUsuarioValidate
+    private List<String> roles;
 
     public Usuario transformIntoUsuario(RequestUsuarioDTO usuarioDTO){
 
@@ -43,4 +48,5 @@ public class RequestUsuarioDTO extends PessoaDTO {
 
         return usuario;
     }
+
 }

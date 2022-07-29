@@ -31,7 +31,7 @@ public final class Message {
     public static final String valorTotalNotNull = "O valor total não pode nulo!";
     public static final String valorTotalMin = "O valor total não pode ser menor que zero!";
 
-    public static final String sexoValidate = "O sexo informado não corresponde aos aceitos pela API! [ Feminino (FEMININO), Masculino (MASCULINO), Não identificado (NAO_IDENTIFICADO)]";
+    public static final String sexoValidate = "O sexo informado não corresponde aos aceitos pela API! [Feminino (FEMININO), Masculino (MASCULINO), Não identificado (NAO_IDENTIFICADO)]";
 
     public static final String statusPedidoValidate = "O satatus do pedido não corresponde aos aceitos pela API! [Realizado (REALIZADO), Cancelado (CANCELADO)]";
 
@@ -48,5 +48,6 @@ public final class Message {
 
     public static final String usuarioNotFoud = "Cliente não encontrado!";
     public static final String usuarioInvalidId = "O ID do cliente é invalido!";
+    public static final String usuarioInvalidRoles = "Uma ou mais roles passada não correspondem as aceitas pela API! [Administrador (ADMINISTRADOR), Funcionario (FUNCIONARIO)]";
 
 }

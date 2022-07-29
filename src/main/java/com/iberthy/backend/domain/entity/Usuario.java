@@ -5,15 +5,19 @@ import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class Usuario extends Pessoa {
+public class Usuario extends Pessoa implements UserDetails {
 
     @NotBlank(message = Message.loginNotBlank)
     private String login;
@@ -21,4 +25,48 @@ public class Usuario extends Pessoa {
     @NotBlank(message = Message.senhaNotBlank)
     private String senha;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuarios_roles",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : this.roles) {authorities.add(new SimpleGrantedAuthority(role.getNome()));}
+
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.isAtivo();
+    }
 }
