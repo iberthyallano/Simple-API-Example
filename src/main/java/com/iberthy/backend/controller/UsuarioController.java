@@ -25,8 +25,9 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    public Page<Usuario> listarUsuarios(RequestUsuarioDTO filtro, Pageable pageable){
-        return usuarioService.findAll(filtro.transformIntoUsuario(filtro),pageable);
+    public Page<ResponseUsuarioDTO> listarUsuarios(RequestUsuarioDTO filtro, Pageable pageable){
+        var pageUsuarioDTO = usuarioService.findAll(filtro.transformIntoUsuario(filtro),pageable).map(u -> new ResponseUsuarioDTO(u));
+        return pageUsuarioDTO;
     }
 
     @PostMapping
@@ -49,9 +50,7 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseUsuarioDTO> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestUsuarioDTO usuarioDTO){
-
         var usuario = usuarioService.edite(id, usuarioDTO.transformIntoUsuario(usuarioDTO));
-
         return ResponseEntity.ok(new ResponseUsuarioDTO(usuario));
     }
 
