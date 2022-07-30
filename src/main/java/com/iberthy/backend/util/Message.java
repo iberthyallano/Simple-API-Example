@@ -7,7 +7,7 @@ public final class Message {
 
     public static final String telefoneNotBlank = "O telefone não pode ser vazio ou nulo!";
 
-    public static final String userNameNotBlank = "O login não pode ser vazio ou nulo!";
+    public static final String userNameNotBlank = "O username não pode ser vazio ou nulo!";
 
     public static final String saldoCarteiraNotNull = "O saldo da carteira não pode ser nulo!";
 
@@ -35,6 +35,7 @@ public final class Message {
 
     public static final String statusPedidoValidate = "O satatus do pedido não corresponde aos aceitos pela API! [Realizado (REALIZADO), Cancelado (CANCELADO)]";
 
+    public static final String authInvalid = "Usuário ou senha invalidos!";
 
     public static final String clienteNotFoud = "Cliente não encontrado!";
     public static final String clienteInvalidId = "O ID do cliente é invalido!";

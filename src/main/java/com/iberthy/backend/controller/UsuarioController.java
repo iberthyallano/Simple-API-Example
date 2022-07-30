@@ -2,7 +2,6 @@ package com.iberthy.backend.controller;
 
 import com.iberthy.backend.controller.dto.request.RequestUsuarioDTO;
 import com.iberthy.backend.controller.dto.response.ResponseUsuarioDTO;
-import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.service.UsuarioService;
 import com.iberthy.backend.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
