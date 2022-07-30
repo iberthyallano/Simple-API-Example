@@ -1,9 +1,7 @@
 package com.iberthy.backend.config;
 
 import com.iberthy.backend.controller.dto.RequestUsuarioDTO;
-import com.iberthy.backend.domain.entity.Role;
 import com.iberthy.backend.domain.enums.TipoRoles;
-import com.iberthy.backend.service.RoleService;
 import com.iberthy.backend.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -19,23 +17,8 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Autowired
     private UsuarioService usuarioService;
 
-    @Autowired
-    private RoleService roleService;
-
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-
-        var listRolesDb = roleService.findAll();
-        var enumRoles = TipoRoles.values();
-
-        if(listRolesDb.size() < enumRoles.length){
-            for (TipoRoles tipoRole : enumRoles) {
-                var roleDb = roleService.findByNome(tipoRole.name());
-
-                if(roleDb == null){roleService.save(new Role(tipoRole.name()));}
-            }
-            System.out.println("Cadastrei as roles");
-        }
 
         var apiadm = usuarioService.finByLogin("apiadm");
 

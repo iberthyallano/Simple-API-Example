@@ -1,11 +1,9 @@
 package com.iberthy.backend.service.implement;
 
 import com.iberthy.backend.controller.dto.RequestUsuarioDTO;
-import com.iberthy.backend.domain.entity.Role;
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.UsuarioRepository;
-import com.iberthy.backend.service.RoleService;
 import com.iberthy.backend.service.UsuarioService;
 import com.iberthy.backend.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
-
 @Service
 public class UsuarioServiceImplement implements UsuarioService{
 
@@ -31,9 +27,6 @@ public class UsuarioServiceImplement implements UsuarioService{
     @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private RoleService roleService;
 
     @Override
     public Page<Usuario> findAll(RequestUsuarioDTO filtro, Pageable pageable){
@@ -63,7 +56,6 @@ public class UsuarioServiceImplement implements UsuarioService{
         var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
 
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        usuario.setRoles(Set.copyOf(roleService.convertListStringInListRole(requestUsuarioDTO.getRoles())));
 
         return usuarioRepository.save(usuario);
     }
@@ -78,7 +70,7 @@ public class UsuarioServiceImplement implements UsuarioService{
         var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
 
         usuario.setId(usuarioDb.getId());
-        usuario.setRoles((Set<Role>) roleService.convertListStringInListRole(requestUsuarioDTO.getRoles()));
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
         return usuarioRepository.save(usuario);
     }

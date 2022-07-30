@@ -2,6 +2,7 @@ package com.iberthy.backend.domain.entity;
 
 import com.iberthy.backend.domain.abstracts.Pessoa;
 import com.iberthy.backend.util.Message;
+import com.iberthy.backend.validation.rolesUsuario.RolesUsuarioValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,17 +26,15 @@ public class Usuario extends Pessoa implements UserDetails {
     @NotBlank(message = Message.senhaNotBlank)
     private String senha;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuarios_roles",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @RolesUsuarioValidate
+    private List<String> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (Role role : this.roles) {authorities.add(new SimpleGrantedAuthority(role.getNome()));}
+        for (String role : this.roles) {authorities.add(new SimpleGrantedAuthority(role));}
 
         return authorities;
     }

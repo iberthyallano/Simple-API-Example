@@ -45,6 +45,7 @@ public class RequestUsuarioDTO extends PessoaDTO {
         usuario.setEmail( usuarioDTO.getEmail());
         usuario.setLogin(usuarioDTO.getLogin());
         usuario.setSenha(usuarioDTO.getSenha());
+        usuario.setRoles(usuarioDTO.getRoles());
 
         return usuario;
     }
