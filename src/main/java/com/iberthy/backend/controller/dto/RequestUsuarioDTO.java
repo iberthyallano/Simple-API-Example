@@ -18,12 +18,12 @@ import java.util.List;
 @Data
 public class RequestUsuarioDTO extends PessoaDTO {
 
-    @NotBlank(message = Message.loginNotBlank)
-    private String login;
+    @NotBlank(message = Message.userNameNotBlank)
+    private String username;
 
-    @NotBlank(message = Message.senhaNotBlank)
-    @Pattern(regexp = Message.senhaRegex, message = Message.senhaInvalidFormat)
-    private String senha;
+    @NotBlank(message = Message.passwordNotBlank)
+    @Pattern(regexp = Message.passwordRegex, message = Message.passwordInvalidFormat)
+    private String password;
 
     @RolesUsuarioValidate
     private List<String> roles;
@@ -43,8 +43,8 @@ public class RequestUsuarioDTO extends PessoaDTO {
 
         usuario.setTelefone( usuarioDTO.getTelefone());
         usuario.setEmail( usuarioDTO.getEmail());
-        usuario.setLogin(usuarioDTO.getLogin());
-        usuario.setSenha(usuarioDTO.getSenha());
+        usuario.setUsername(usuarioDTO.getUsername());
+        usuario.setPassword(usuarioDTO.getPassword());
         usuario.setRoles(usuarioDTO.getRoles());
 
         return usuario;

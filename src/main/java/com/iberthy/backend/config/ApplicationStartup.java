@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 @Component
@@ -20,11 +21,11 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-        var apiadm = usuarioService.finByLogin("apiadm");
+        var apiadm = usuarioService.finByUsername("apiadm");
 
         if(apiadm == null){
 
-            var roles = Arrays.asList(TipoRoles.ADMINISTRADOR.name());
+            var roles = List.of(TipoRoles.ADMINISTRADOR.name());
 
             var userDTO = new RequestUsuarioDTO("apiadm", "P@sw12", roles);
 

@@ -20,11 +20,11 @@ import java.util.*;
 @Entity
 public class Usuario extends Pessoa implements UserDetails {
 
-    @NotBlank(message = Message.loginNotBlank)
-    private String login;
+    @NotBlank(message = Message.userNameNotBlank)
+    private String username;
 
-    @NotBlank(message = Message.senhaNotBlank)
-    private String senha;
+    @NotBlank(message = Message.passwordNotBlank)
+    private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @RolesUsuarioValidate
@@ -41,12 +41,12 @@ public class Usuario extends Pessoa implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.senha;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.login;
+        return this.username;
     }
 
     @Override

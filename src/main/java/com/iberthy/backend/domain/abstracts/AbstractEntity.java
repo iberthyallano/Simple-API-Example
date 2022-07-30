@@ -14,7 +14,6 @@ import javax.persistence.MappedSuperclass;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

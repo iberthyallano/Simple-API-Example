@@ -12,7 +12,7 @@ public interface UsuarioService extends UserDetailsService {
 
     Usuario findById(Long id);
 
-    Usuario finByLogin(String nome);
+    Usuario finByUsername(String username);
 
     Usuario save(RequestUsuarioDTO usuario);
 

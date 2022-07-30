@@ -45,8 +45,8 @@ public class UsuarioServiceImplement implements UsuarioService{
     }
 
     @Override
-    public Usuario finByLogin(String nome) {
-        return usuarioRepository.findByLoginActive(nome);
+    public Usuario finByUsername(String nome) {
+        return usuarioRepository.findByUsernameActive(nome);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UsuarioServiceImplement implements UsuarioService{
 
         var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
 
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
         return usuarioRepository.save(usuario);
     }
@@ -70,7 +70,7 @@ public class UsuarioServiceImplement implements UsuarioService{
         var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
 
         usuario.setId(usuarioDb.getId());
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
         return usuarioRepository.save(usuario);
     }
@@ -90,7 +90,7 @@ public class UsuarioServiceImplement implements UsuarioService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        var usuarioDb = usuarioRepository.findByLoginActive(username);
+        var usuarioDb = usuarioRepository.findByUsernameActive(username);
 
         if(usuarioDb == null){throw new UsernameNotFoundException(Message.usuarioNotFoud);}
 
