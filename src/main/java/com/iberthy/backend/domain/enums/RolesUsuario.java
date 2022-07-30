@@ -1,6 +1,6 @@
 package com.iberthy.backend.domain.enums;
 
-public enum TipoRoles {
+public enum RolesUsuario {
     ADMINISTRADOR,
     FUNCIONARIO;
 }

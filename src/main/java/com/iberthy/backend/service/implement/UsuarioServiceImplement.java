@@ -1,6 +1,6 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.controller.dto.RequestUsuarioDTO;
+import com.iberthy.backend.controller.dto.request.RequestUsuarioDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.UsuarioRepository;
@@ -29,14 +29,12 @@ public class UsuarioServiceImplement implements UsuarioService{
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<Usuario> findAll(RequestUsuarioDTO filtro, Pageable pageable){
+    public Page<Usuario> findAll(Usuario filtro, Pageable pageable){
 
         var matcher = ExampleMatcher.matching().withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
-        var usuario = filtro.transformIntoUsuario(filtro);
-
-        return usuarioRepository.findAll(Example.of(usuario,matcher), pageable);
+        return usuarioRepository.findAll(Example.of(filtro,matcher), pageable);
     }
 
     @Override
@@ -51,9 +49,7 @@ public class UsuarioServiceImplement implements UsuarioService{
 
     @Override
     @Transactional
-    public Usuario save(RequestUsuarioDTO requestUsuarioDTO){
-
-        var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
+    public Usuario save(Usuario usuario){
 
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 
@@ -62,12 +58,10 @@ public class UsuarioServiceImplement implements UsuarioService{
 
     @Override
     @Transactional
-    public Usuario edite(Long id, RequestUsuarioDTO requestUsuarioDTO){
+    public Usuario edite(Long id, Usuario usuario){
         var usuarioDb = usuarioRepository.findByIdActive(id);
 
         if(usuarioDb == null){throw new GenericException(Message.usuarioInvalidId);}
-
-        var usuario = requestUsuarioDTO.transformIntoUsuario(requestUsuarioDTO);
 
         usuario.setId(usuarioDb.getId());
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));

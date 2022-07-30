@@ -1,4 +1,4 @@
-package com.iberthy.backend.controller.dto;
+package com.iberthy.backend.controller.dto.request;
 
 import com.iberthy.backend.controller.dto.abstracts.PessoaDTO;
 import com.iberthy.backend.domain.entity.Cliente;

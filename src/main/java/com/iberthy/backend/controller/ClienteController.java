@@ -1,6 +1,6 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.controller.dto.RequestClienteDTO;
+import com.iberthy.backend.controller.dto.request.RequestClienteDTO;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.service.ClienteService;
 import com.iberthy.backend.util.Message;
@@ -25,13 +25,13 @@ public class ClienteController {
 
     @GetMapping
     public Page<Cliente> listarClientes(RequestClienteDTO filtro, Pageable pageable){
-        return clienteService.findAll(filtro,pageable);
+        return clienteService.findAll(filtro.transformIntoCliente(filtro),pageable);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente salvarCliente(@Valid @RequestBody RequestClienteDTO cliente){
-        return clienteService.save(cliente);
+        return clienteService.save(cliente.transformIntoCliente(cliente));
     }
 
     @GetMapping("/{id}")
@@ -45,7 +45,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> editarClienteById(@PathVariable Long id, @Valid @RequestBody RequestClienteDTO cliente){
-        return ResponseEntity.ok(clienteService.edite(id, cliente));
+        return ResponseEntity.ok(clienteService.edite(id, cliente.transformIntoCliente(cliente)));
     }
 
     @DeleteMapping("/{id}")

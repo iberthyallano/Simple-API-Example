@@ -1,6 +1,7 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.controller.dto.RequestUsuarioDTO;
+import com.iberthy.backend.controller.dto.request.RequestUsuarioDTO;
+import com.iberthy.backend.controller.dto.response.ResponseUsuarioDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.service.UsuarioService;
 import com.iberthy.backend.util.Message;
@@ -25,27 +26,33 @@ public class UsuarioController {
 
     @GetMapping
     public Page<Usuario> listarUsuarios(RequestUsuarioDTO filtro, Pageable pageable){
-        return usuarioService.findAll(filtro,pageable);
+        return usuarioService.findAll(filtro.transformIntoUsuario(filtro),pageable);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario salvarUsuario(@Valid @RequestBody RequestUsuarioDTO usuario){
-        return usuarioService.save(usuario);
+    public ResponseUsuarioDTO salvarUsuario(@Valid @RequestBody RequestUsuarioDTO usuarioDTO){
+
+        var usuario = usuarioService.save(usuarioDTO.transformIntoUsuario(usuarioDTO));
+
+        return new ResponseUsuarioDTO(usuario);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarUsuarioById(@PathVariable Long id){
+    public ResponseEntity<ResponseUsuarioDTO> buscarUsuarioById(@PathVariable Long id){
         var usuarioDb = usuarioService.findById(id);
 
         if(usuarioDb == null){throw new ResponseStatusException(HttpStatus.NOT_FOUND, Message.usuarioNotFoud);}
 
-        return ResponseEntity.ok(usuarioDb);
+        return ResponseEntity.ok(new ResponseUsuarioDTO(usuarioDb));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestUsuarioDTO usuario){
-        return ResponseEntity.ok(usuarioService.edite(id, usuario));
+    public ResponseEntity<ResponseUsuarioDTO> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestUsuarioDTO usuarioDTO){
+
+        var usuario = usuarioService.edite(id, usuarioDTO.transformIntoUsuario(usuarioDTO));
+
+        return ResponseEntity.ok(new ResponseUsuarioDTO(usuario));
     }
 
     @DeleteMapping("/{id}")

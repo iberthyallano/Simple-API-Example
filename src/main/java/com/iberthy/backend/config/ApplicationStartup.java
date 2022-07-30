@@ -1,14 +1,14 @@
 package com.iberthy.backend.config;
 
-import com.iberthy.backend.controller.dto.RequestUsuarioDTO;
-import com.iberthy.backend.domain.enums.TipoRoles;
+import com.iberthy.backend.domain.entity.Usuario;
+import com.iberthy.backend.domain.enums.Sexo;
+import com.iberthy.backend.domain.enums.RolesUsuario;
 import com.iberthy.backend.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -25,17 +25,18 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
         if(apiadm == null){
 
-            var roles = List.of(TipoRoles.ADMINISTRADOR.name());
+            var usuario = new Usuario();
 
-            var userDTO = new RequestUsuarioDTO("apiadm", "P@sw12", roles);
+            usuario.setUsername("apiadm");
+            usuario.setPassword("P@sw12");
+            usuario.setRoles(List.of(RolesUsuario.ADMINISTRADOR.name()));
+            usuario.setNome("Administrador");
+            usuario.setCpf("000.000.000-00");
+            usuario.setSexo(Sexo.NAO_IDENTIFICADO);
+            usuario.setTelefone("00 00000-0000");
+            usuario.setEmail("apiadm@simple_api_example.com");
 
-            userDTO.setNome("Administrador");
-            userDTO.setCpf("000.000.000-00");
-            userDTO.setSexo("NAO_IDENTIFICADO");
-            userDTO.setTelefone("00 00000-0000");
-            userDTO.setEmail("apiadm@simple_api_example.com");
-
-            usuarioService.save(userDTO);
+            usuarioService.save(usuario);
 
             System.out.println("Cadastrei o usuario básico da API");
         }

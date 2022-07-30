@@ -1,4 +1,4 @@
-package com.iberthy.backend.controller.dto.pedido;
+package com.iberthy.backend.controller.dto.request.pedido;
 
 import com.iberthy.backend.domain.enums.StatusPedido;
 import com.iberthy.backend.validation.sexo.SexoValidate;

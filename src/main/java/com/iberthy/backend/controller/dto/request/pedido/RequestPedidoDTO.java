@@ -1,4 +1,4 @@
-package com.iberthy.backend.controller.dto.pedido;
+package com.iberthy.backend.controller.dto.request.pedido;
 
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.domain.entity.pedido.Pedido;

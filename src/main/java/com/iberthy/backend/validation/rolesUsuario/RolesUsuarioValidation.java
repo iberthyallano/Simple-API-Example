@@ -1,6 +1,6 @@
 package com.iberthy.backend.validation.rolesUsuario;
 
-import com.iberthy.backend.domain.enums.TipoRoles;
+import com.iberthy.backend.domain.enums.RolesUsuario;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -18,7 +18,7 @@ public class RolesUsuarioValidation implements ConstraintValidator<RolesUsuarioV
 
         if(roles!= null && !roles.isEmpty()){
             for (String role : roles) {
-                if(!role.equals(TipoRoles.ADMINISTRADOR.name()) && !role.equals(TipoRoles.FUNCIONARIO.name())){return false;}
+                if(!role.equals(RolesUsuario.ADMINISTRADOR.name()) && !role.equals(RolesUsuario.FUNCIONARIO.name())){return false;}
             }
         }
 

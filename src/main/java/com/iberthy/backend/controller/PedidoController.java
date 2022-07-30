@@ -1,7 +1,7 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.controller.dto.pedido.RequestPedidoDTO;
-import com.iberthy.backend.controller.dto.pedido.RequestStatusPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestStatusPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
 import com.iberthy.backend.service.PedidoService;
 import com.iberthy.backend.util.Message;

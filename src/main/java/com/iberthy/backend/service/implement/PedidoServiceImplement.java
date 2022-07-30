@@ -1,8 +1,8 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.controller.dto.pedido.RequestItemPedidoDTO;
-import com.iberthy.backend.controller.dto.pedido.RequestPedidoDTO;
-import com.iberthy.backend.controller.dto.pedido.RequestStatusPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestItemPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestStatusPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.ItemPedido;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
 import com.iberthy.backend.domain.enums.StatusPedido;
