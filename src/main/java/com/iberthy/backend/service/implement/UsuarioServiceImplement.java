@@ -82,7 +82,7 @@ public class UsuarioServiceImplement implements UsuarioService{
 
         if(usuarioDb == null){throw new GenericException(Message.usuarioInvalidId);}
 
-        usuarioDb.setAtivo(false);
+        usuarioDb.setEnabled(false);
 
         return usuarioRepository.save(usuarioDb);
     }

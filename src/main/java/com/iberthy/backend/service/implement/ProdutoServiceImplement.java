@@ -26,8 +26,8 @@ public class ProdutoServiceImplement implements ProdutoService {
 
         var example = Example.of(filtro,matcher);
 
-        if(filtro.isAtivo() != false){
-            filtro.setAtivo(true);
+        if(filtro.isEnabled() != false){
+            filtro.setEnabled(true);
         }
 
         return produtoRepository.findAll(example, pageable);
@@ -59,7 +59,7 @@ public class ProdutoServiceImplement implements ProdutoService {
 
         if(produtoDb == null){throw new GenericException(Message.produtoInvalidId);}
 
-        produtoDb.setAtivo(false);
+        produtoDb.setEnabled(false);
 
         return produtoRepository.save(produtoDb);
     }

@@ -66,6 +66,6 @@ public class Usuario extends Pessoa implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.isAtivo();
+        return this.enabled;
     }
 }

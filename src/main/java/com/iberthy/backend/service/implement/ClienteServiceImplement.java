@@ -66,7 +66,7 @@ public class ClienteServiceImplement implements ClienteService {
 
         if(clienteDb == null){throw new GenericException(Message.clienteInvalidId);}
 
-        clienteDb.setAtivo(false);
+        clienteDb.setEnabled(false);
 
         return clienteRepository.save(clienteDb);
     }

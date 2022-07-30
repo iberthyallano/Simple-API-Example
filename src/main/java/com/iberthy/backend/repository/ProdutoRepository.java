@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
-    @Query("select p from Produto p where p.id = :id and p.ativo = true")
+    @Query("select p from Produto p where p.id = :id and p.enabled = true")
     Produto findByIdActive(Long id);
 
 }

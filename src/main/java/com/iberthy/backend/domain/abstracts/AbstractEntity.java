@@ -19,5 +19,5 @@ public abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    public boolean ativo = true;
+    public boolean enabled = true;
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-    @Query("select c from Cliente c where c.id = :id and c.ativo = true")
+    @Query("select c from Cliente c where c.id = :id and c.enabled = true")
     Cliente findByIdActive(Long id);
 
 }
