@@ -27,10 +27,7 @@ public class RequestPedidoDTO {
 
     private List<RequestItemPedidoDTO> items;
 
-    public Pedido transformIntoPedido(Cliente cliente,
-                                      StatusPedido status,
-                                      LocalDateTime data,
-                                      RequestPedidoDTO pedidoDTO){
+    public Pedido transformIntoPedido(Cliente cliente, StatusPedido status, LocalDateTime data, RequestPedidoDTO pedidoDTO){
 
         var pedido = new Pedido();
 

@@ -20,18 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
+    @Autowired
     private TokenService tokenService;
-    private AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthController(
-            TokenService tokenService,
-            AuthenticationManager authenticationManager
-    ) {
-        this.tokenService = tokenService;
-        this.authenticationManager = authenticationManager;
-    }
-
+    private AuthenticationManager authenticationManager;
 
     @PostMapping
     public ResponseEntity<ResponseAuthDTO> auth(@RequestBody @Validated RequestAuthDTO authDTO){

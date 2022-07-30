@@ -1,6 +1,5 @@
 package com.iberthy.backend.config.security;
 
-import com.iberthy.backend.repository.UsuarioRepository;
 import com.iberthy.backend.service.TokenService;
 import com.iberthy.backend.service.UsuarioService;
 import lombok.AllArgsConstructor;
@@ -44,4 +43,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
 }

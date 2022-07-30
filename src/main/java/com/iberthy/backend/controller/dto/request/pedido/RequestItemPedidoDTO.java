@@ -7,16 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class RequestItemPedidoDTO {
+
     private Long produto;
     private Integer quantidade;
 
-    public ItemPedido transformIntoItemPedido(Pedido pedido, Produto produto,
-                                          RequestItemPedidoDTO itemPedidoDTO){
+    public ItemPedido transformIntoItemPedido(Pedido pedido, Produto produto, RequestItemPedidoDTO itemPedidoDTO){
 
         var item = new ItemPedido();
         item.setQuantidade(itemPedidoDTO.getQuantidade());
@@ -25,4 +24,5 @@ public class RequestItemPedidoDTO {
 
         return item;
     }
+
 }

@@ -14,5 +14,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
     @Query("select u from Usuario u where u.username = :username and u.enabled = true")
     Usuario findByUsernameActive(String username);
 
-
 }

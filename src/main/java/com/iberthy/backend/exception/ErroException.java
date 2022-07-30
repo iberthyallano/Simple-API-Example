@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class ErroException {
+
     private Integer status;
     private LocalDateTime dataHora;
     private String titulo;
@@ -25,4 +26,5 @@ public class ErroException {
         private String nome;
         private String mensagem;
     }
+
 }

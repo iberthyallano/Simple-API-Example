@@ -24,4 +24,5 @@ public class Cliente extends Pessoa {
 
     @OneToMany( mappedBy = "cliente" , fetch = FetchType.LAZY )
     private Set<Pedido> pedidos;
+
 }

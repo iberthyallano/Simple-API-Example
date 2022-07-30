@@ -17,6 +17,4 @@ public interface TokenService {
     String generateToken(String username);
 
     Boolean validateToken(String token, UserDetails userDetails);
-
-
 }

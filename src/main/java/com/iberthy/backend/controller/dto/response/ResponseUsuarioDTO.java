@@ -2,7 +2,6 @@ package com.iberthy.backend.controller.dto.response;
 
 import com.iberthy.backend.controller.dto.abstracts.PessoaDTO;
 import com.iberthy.backend.domain.entity.Usuario;
-import com.iberthy.backend.domain.enums.Sexo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,6 @@ public class ResponseUsuarioDTO extends PessoaDTO {
     private String password;
     private List<String> roles;
 
-
     public ResponseUsuarioDTO(Usuario usuario){
         this.id = usuario.getId();
         this.username = usuario.getUsername();
@@ -33,4 +31,5 @@ public class ResponseUsuarioDTO extends PessoaDTO {
         this.setTelefone(usuario.getTelefone());
         this.setEmail(usuario.getEmail());
     }
+
 }

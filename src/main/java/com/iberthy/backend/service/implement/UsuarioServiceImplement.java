@@ -1,6 +1,5 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.controller.dto.request.RequestUsuarioDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.UsuarioRepository;

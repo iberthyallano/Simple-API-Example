@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Data
 public class ResponseAuthDTO {
+
     private String username;
     private List<String> roles;
     private String token;
@@ -21,4 +22,5 @@ public class ResponseAuthDTO {
         this.token = "Bearer " + token;
         this.roles = userDetails.getAuthorities().stream().map(a -> a.getAuthority()).collect(Collectors.toList());
     }
+
 }

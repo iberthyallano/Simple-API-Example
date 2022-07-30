@@ -1,6 +1,5 @@
 package com.iberthy.backend.service;
 
-import com.iberthy.backend.controller.dto.request.RequestUsuarioDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
