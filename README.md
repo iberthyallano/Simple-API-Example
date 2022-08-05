@@ -20,7 +20,7 @@
 <br>
 
 <p>
-  Este projeto tem como objetivo ser um exemplo completo de uma API REST desenvolvida com Java utilizando Spring Boot, e associando as melhores práticas para um desenvolvimento mais organizado e com maior desempenho.
+  Este projeto tem como objetivo ser um exemplo completo de uma API REST desenvolvida com Java e Spring Boot, associando as melhores práticas para um desenvolvimento mais organizado e com maior desempenho.
 </p>
 
 <br>
