@@ -1,4 +1,4 @@
-package com.iberthy.backend.controller.dto.response;
+package com.iberthy.backend.service.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

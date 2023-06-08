@@ -2,7 +2,7 @@ package com.iberthy.backend.domain.entity;
 
 import com.iberthy.backend.domain.abstracts.Pessoa;
 import com.iberthy.backend.util.Message;
-import com.iberthy.backend.validation.rolesUsuario.RolesUsuarioValidate;
+import com.iberthy.backend.domain.validation.rolesUsuario.RolesUsuarioValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

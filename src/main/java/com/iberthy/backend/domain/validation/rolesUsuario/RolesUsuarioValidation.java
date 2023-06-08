@@ -1,4 +1,4 @@
-package com.iberthy.backend.validation.rolesUsuario;
+package com.iberthy.backend.domain.validation.rolesUsuario;
 
 import com.iberthy.backend.domain.enums.RolesUsuario;
 

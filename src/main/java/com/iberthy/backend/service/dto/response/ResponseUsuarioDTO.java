@@ -1,6 +1,6 @@
-package com.iberthy.backend.controller.dto.response;
+package com.iberthy.backend.service.dto.response;
 
-import com.iberthy.backend.controller.dto.abstracts.PessoaDTO;
+import com.iberthy.backend.service.dto.abstracts.PessoaDTO;
 import com.iberthy.backend.domain.entity.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;

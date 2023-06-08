@@ -1,6 +1,6 @@
-package com.iberthy.backend.controller.dto.request;
+package com.iberthy.backend.service.dto.request;
 
-import com.iberthy.backend.controller.dto.abstracts.PessoaDTO;
+import com.iberthy.backend.service.dto.abstracts.PessoaDTO;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.domain.enums.Sexo;
 import com.iberthy.backend.util.Message;

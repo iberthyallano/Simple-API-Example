@@ -1,6 +1,6 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.controller.dto.request.RequestClienteDTO;
+import com.iberthy.backend.service.dto.request.RequestClienteDTO;
 import com.iberthy.backend.domain.entity.Cliente;
 import com.iberthy.backend.service.ClienteService;
 import com.iberthy.backend.util.Message;

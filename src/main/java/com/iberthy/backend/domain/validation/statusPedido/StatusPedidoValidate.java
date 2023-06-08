@@ -1,4 +1,4 @@
-package com.iberthy.backend.validation.statusPedido;
+package com.iberthy.backend.domain.validation.statusPedido;
 
 import com.iberthy.backend.util.Message;
 

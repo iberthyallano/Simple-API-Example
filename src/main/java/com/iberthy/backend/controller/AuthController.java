@@ -1,7 +1,7 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.controller.dto.request.RequestAuthDTO;
-import com.iberthy.backend.controller.dto.response.ResponseAuthDTO;
+import com.iberthy.backend.service.dto.request.RequestAuthDTO;
+import com.iberthy.backend.service.dto.response.ResponseAuthDTO;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.service.TokenService;
 import com.iberthy.backend.util.Message;

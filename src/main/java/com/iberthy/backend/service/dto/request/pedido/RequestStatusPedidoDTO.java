@@ -1,7 +1,7 @@
-package com.iberthy.backend.controller.dto.request.pedido;
+package com.iberthy.backend.service.dto.request.pedido;
 
 import com.iberthy.backend.domain.enums.StatusPedido;
-import com.iberthy.backend.validation.sexo.SexoValidate;
+import com.iberthy.backend.domain.validation.sexo.SexoValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

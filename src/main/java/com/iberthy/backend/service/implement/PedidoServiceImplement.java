@@ -1,8 +1,8 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.controller.dto.request.pedido.RequestItemPedidoDTO;
-import com.iberthy.backend.controller.dto.request.pedido.RequestPedidoDTO;
-import com.iberthy.backend.controller.dto.request.pedido.RequestStatusPedidoDTO;
+import com.iberthy.backend.service.dto.request.pedido.RequestItemPedidoDTO;
+import com.iberthy.backend.service.dto.request.pedido.RequestPedidoDTO;
+import com.iberthy.backend.service.dto.request.pedido.RequestStatusPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.ItemPedido;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
 import com.iberthy.backend.domain.enums.StatusPedido;
@@ -12,7 +12,9 @@ import com.iberthy.backend.repository.Pedido.PedidoRespository;
 import com.iberthy.backend.service.ClienteService;
 import com.iberthy.backend.service.PedidoService;
 import com.iberthy.backend.service.ProdutoService;
+import com.iberthy.backend.util.CommonMethods;
 import com.iberthy.backend.util.Message;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 public class PedidoServiceImplement implements PedidoService {
 
@@ -40,62 +43,123 @@ public class PedidoServiceImplement implements PedidoService {
 
     @Override
     public Page<Pedido> findAllByCliente(Long clienteId, Pageable pageable) {
-        var cliente = clienteService.findById(clienteId);
+        var nomeFunc = CommonMethods.getNameFunction();
+        try {
+            log.info("Iniciando execução da função {}", nomeFunc);
 
-        if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
+            var cliente = clienteService.findById(clienteId);
 
-        return pedidoRespository.findByCliente(cliente,pageable);
+            if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
+
+            var page = pedidoRespository.findByCliente(cliente,pageable);
+
+            log.warn("Executada com sucesso!");
+            return page;
+        }catch(Exception ex){
+            log.error("Executada com erro ".concat(ex.getMessage()), ex);
+            throw ex;
+        }finally {
+            log.info("Finalizando execução da função {}", nomeFunc);
+        }
     }
 
     @Override
     public Pedido findById(Long id) {
-        return pedidoRespository.findByIdFetchItens(id);
+        var nomeFunc = CommonMethods.getNameFunction();
+        try {
+            log.info("Iniciando execução da função {}", nomeFunc);
+
+            var page = pedidoRespository.findByIdFetchItens(id);
+
+            log.warn("Executada com sucesso!");
+            return page;
+        }catch(Exception ex){
+            log.error("Executada com erro ".concat(ex.getMessage()), ex);
+            throw ex;
+        }finally {
+            log.info("Finalizando execução da função {}", nomeFunc);
+        }
     }
 
     @Override
     @Transactional
     public Pedido save(RequestPedidoDTO requestPedidoDTO) {
-        var cliente = clienteService.findById(requestPedidoDTO.getCliente());
+        var nomeFunc = CommonMethods.getNameFunction();
+        try {
+            log.info("Iniciando execução da função {}", nomeFunc);
 
-        if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
+            var cliente = clienteService.findById(requestPedidoDTO.getCliente());
 
-        var pedido = requestPedidoDTO.transformIntoPedido(cliente, StatusPedido.REALIZADO, LocalDateTime.now(), requestPedidoDTO);
+            if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
 
-        pedidoRespository.save(pedido);
+            var pedido = requestPedidoDTO.transformIntoPedido(cliente, StatusPedido.REALIZADO, LocalDateTime.now(), requestPedidoDTO);
 
-        var items = converterItems(pedido, requestPedidoDTO.getItems());
-        itemPedidoRepository.saveAll(items);
-        pedido.setItens(items);
+            pedidoRespository.save(pedido);
 
-        return pedido;
+            var items = converterItems(pedido, requestPedidoDTO.getItems());
+            itemPedidoRepository.saveAll(items);
+            pedido.setItens(items);
+
+            log.warn("Executada com sucesso!");
+            return pedido;
+        }catch(Exception ex){
+            log.error("Executada com erro ".concat(ex.getMessage()), ex);
+            throw ex;
+        }finally {
+            log.info("Finalizando execução da função {}", nomeFunc);
+        }
     }
 
     @Override
     @Transactional
     public Pedido alterarStatus(Long id, RequestStatusPedidoDTO requestStatusPedidoDTO) {
-        var pedido = pedidoRespository.findByIdFetchItens(id);
+        var nomeFunc = CommonMethods.getNameFunction();
+        try {
+            log.info("Iniciando execução da função {}", nomeFunc);
 
-        if(pedido == null){throw new GenericException(Message.pedidoInvalidId);}
+            var pedido = pedidoRespository.findByIdFetchItens(id);
 
-        var status = requestStatusPedidoDTO.transformIntoStatusPedido(requestStatusPedidoDTO);
+            if(pedido == null){throw new GenericException(Message.pedidoInvalidId);}
 
-        pedido.setStatus(status);
+            var status = requestStatusPedidoDTO.transformIntoStatusPedido(requestStatusPedidoDTO);
 
-        return  pedidoRespository.save(pedido);
+            pedido.setStatus(status);
+
+            var save = pedidoRespository.save(pedido);
+
+            log.warn("Executada com sucesso!");
+            return save;
+        }catch(Exception ex){
+            log.error("Executada com erro ".concat(ex.getMessage()), ex);
+            throw ex;
+        }finally {
+            log.info("Finalizando execução da função {}", nomeFunc);
+        }
     }
 
     private List<ItemPedido> converterItems(Pedido pedido, List<RequestItemPedidoDTO> requestItemPedidoDTOList){
+        var nomeFunc = CommonMethods.getNameFunction();
+        try {
+            log.info("Iniciando execução da função {}", nomeFunc);
 
-        if(requestItemPedidoDTOList.isEmpty()){throw new GenericException(Message.notSavePedidoAndItemsIsEmpty);}
+            if(requestItemPedidoDTOList.isEmpty()){throw new GenericException(Message.notSavePedidoAndItemsIsEmpty);}
 
-        return requestItemPedidoDTOList.stream().map( dto -> {
-            var produto = produtoService.findById(dto.getProduto());
+            var pedidos = requestItemPedidoDTOList.stream().map( dto -> {
+                var produto = produtoService.findById(dto.getProduto());
 
-            if(produto == null){throw new GenericException(Message.produtoInvalidId + "[id: "+dto.getProduto()+"]");}
+                if(produto == null){throw new GenericException(Message.produtoInvalidId + "[id: "+dto.getProduto()+"]");}
 
-            return dto.transformIntoItemPedido(pedido, produto, dto);
-        }).collect(Collectors.toList());
+                return dto.transformIntoItemPedido(pedido, produto, dto);
+            }).collect(Collectors.toList());
 
+            log.warn("Executada com sucesso!");
+            return pedidos;
+        }catch(Exception ex){
+            log.error("Executada com erro ".concat(ex.getMessage()), ex);
+            throw ex;
+        }finally {
+            log.info("Finalizando execução da função {}", nomeFunc);
+        }
     }
 
 }
