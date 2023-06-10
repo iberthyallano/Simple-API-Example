@@ -5,6 +5,8 @@ import com.iberthy.backend.service.dto.request.pedido.RequestStatusPedidoDTO;
 import com.iberthy.backend.domain.entity.pedido.Pedido;
 import com.iberthy.backend.service.PedidoService;
 import com.iberthy.backend.util.Message;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 @RestController
 @PreAuthorize("hasAnyAuthority('ADMINISTRADOR', 'FUNCIONARIO')")
 @RequestMapping("/pedidos")
+@Api(tags = "Pedido", description = " ")
 public class PedidoController {
 
     @Autowired
@@ -26,11 +29,13 @@ public class PedidoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Criação de um pedido")
     public Pedido salvarPedido(@Valid @RequestBody RequestPedidoDTO pedidoDTO){
         return pedidoService.save(pedidoDTO);
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Busca de um pedido específico por ID")
     public ResponseEntity<Pedido> buscarPedidoById(@PathVariable Long id){
         var pedidoDB = pedidoService.findById(id);
 
@@ -40,12 +45,14 @@ public class PedidoController {
     }
 
     @GetMapping("/cliente/{clienteId}")
+    @ApiOperation("Busca dos pedidos de um cliente por ID do cliente")
     public Page<Pedido> listarPedidosByCliente(@PathVariable Long clienteId, Pageable pageable){
         return pedidoService.findAllByCliente(clienteId, pageable);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Pedido> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestStatusPedidoDTO status){
+    @ApiOperation("Atualização de dados de um pedido específico por ID")
+    public ResponseEntity<Pedido> editarPedidoById(@PathVariable Long id, @Valid @RequestBody RequestStatusPedidoDTO status){
         pedidoService.alterarStatus(id, status);
         return ResponseEntity.noContent().build();
     }

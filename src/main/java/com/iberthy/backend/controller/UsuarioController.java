@@ -4,6 +4,8 @@ import com.iberthy.backend.service.dto.request.RequestUsuarioDTO;
 import com.iberthy.backend.service.dto.response.ResponseUsuarioDTO;
 import com.iberthy.backend.service.UsuarioService;
 import com.iberthy.backend.util.Message;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,12 +20,14 @@ import javax.validation.Valid;
 @RestController
 @PreAuthorize("hasAnyAuthority('ADMINISTRADOR')")
 @RequestMapping("/usuarios")
+@Api(tags = "Usuário", description = " ")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
 
     @GetMapping
+    @ApiOperation("Listagem de usuários")
     public Page<ResponseUsuarioDTO> listarUsuarios(RequestUsuarioDTO filtro, Pageable pageable){
         var pageUsuarioDTO = usuarioService.findAll(filtro.transformIntoUsuario(filtro),pageable).map(u -> new ResponseUsuarioDTO(u));
         return pageUsuarioDTO;
@@ -31,6 +35,7 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Criação de um usuário")
     public ResponseUsuarioDTO salvarUsuario(@Valid @RequestBody RequestUsuarioDTO usuarioDTO){
 
         var usuario = usuarioService.save(usuarioDTO.transformIntoUsuario(usuarioDTO));
@@ -39,6 +44,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("Busca de um usuário específico por ID")
     public ResponseEntity<ResponseUsuarioDTO> buscarUsuarioById(@PathVariable Long id){
         var usuarioDb = usuarioService.findById(id);
 
@@ -48,12 +54,14 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
+    @ApiOperation("Atualização de dados de um usuário específico por ID")
     public ResponseEntity<ResponseUsuarioDTO> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestUsuarioDTO usuarioDTO){
         var usuario = usuarioService.edite(id, usuarioDTO.transformIntoUsuario(usuarioDTO));
         return ResponseEntity.ok(new ResponseUsuarioDTO(usuario));
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation("Exclusão de dados de um usuário específico por ID")
     public ResponseEntity<Void> deleteUsuarioById(@PathVariable Long id){
         usuarioService.delete(id);
         return ResponseEntity.noContent().build();
