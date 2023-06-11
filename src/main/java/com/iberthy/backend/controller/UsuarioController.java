@@ -1,24 +1,23 @@
 package com.iberthy.backend.controller;
 
-import com.iberthy.backend.service.dto.request.RequestUsuarioDTO;
-import com.iberthy.backend.service.dto.response.ResponseUsuarioDTO;
+import com.iberthy.backend.controller.Mapper.UsuarioMapper;
+import com.iberthy.backend.controller.dto.request.usuario.UsuarioFilterDTO;
+import com.iberthy.backend.controller.dto.request.usuario.UsuarioSaveDTO;
+import com.iberthy.backend.controller.dto.request.usuario.UsuarioUpdSenhaDTO;
+import com.iberthy.backend.controller.dto.response.usuario.UsuarioDTO;
 import com.iberthy.backend.service.UsuarioService;
-import com.iberthy.backend.util.Message;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import javax.validation.Valid;
+import java.util.List;
+
 
 @RestController
-@PreAuthorize("hasAnyAuthority('ADMINISTRADOR')")
 @RequestMapping("/usuarios")
 @Api(tags = "Usuário", description = " ")
 public class UsuarioController {
@@ -26,45 +25,49 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
-    @ApiOperation("Listagem de usuários")
-    public Page<ResponseUsuarioDTO> listarUsuarios(RequestUsuarioDTO filtro, Pageable pageable){
-        var pageUsuarioDTO = usuarioService.findAll(filtro.transformIntoUsuario(filtro),pageable).map(u -> new ResponseUsuarioDTO(u));
-        return pageUsuarioDTO;
-    }
+    @Autowired
+    private UsuarioMapper usuarioMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR')")
     @ApiOperation("Criação de um usuário")
-    public ResponseUsuarioDTO salvarUsuario(@Valid @RequestBody RequestUsuarioDTO usuarioDTO){
-
-        var usuario = usuarioService.save(usuarioDTO.transformIntoUsuario(usuarioDTO));
-
-        return new ResponseUsuarioDTO(usuario);
-    }
-
-    @GetMapping("/{id}")
-    @ApiOperation("Busca de um usuário específico por ID")
-    public ResponseEntity<ResponseUsuarioDTO> buscarUsuarioById(@PathVariable Long id){
-        var usuarioDb = usuarioService.findById(id);
-
-        if(usuarioDb == null){throw new ResponseStatusException(HttpStatus.NOT_FOUND, Message.usuarioNotFoud);}
-
-        return ResponseEntity.ok(new ResponseUsuarioDTO(usuarioDb));
+    public ResponseEntity<UsuarioDTO> salvarUsuario(@Valid @RequestBody UsuarioSaveDTO usuario){
+        var model = usuarioMapper.mapUsuarioSaveDTOToModel(usuario);
+        var response = usuarioMapper.mapUsuarioModelToUsuarioDTO(usuarioService.save(model));
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
     @ApiOperation("Atualização de dados de um usuário específico por ID")
-    public ResponseEntity<ResponseUsuarioDTO> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody RequestUsuarioDTO usuarioDTO){
-        var usuario = usuarioService.edite(id, usuarioDTO.transformIntoUsuario(usuarioDTO));
-        return ResponseEntity.ok(new ResponseUsuarioDTO(usuario));
+    public ResponseEntity<UsuarioDTO> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody UsuarioSaveDTO usuario){
+        var model = usuarioMapper.mapUsuarioSaveDTOToModel(usuario);
+        var response = usuarioMapper.mapUsuarioModelToUsuarioDTO(usuarioService.edite(id, model));
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    @ApiOperation("Atualização de senha do usuário específico por ID")
+    public ResponseEntity<Boolean> editarUsuarioById(@PathVariable Long id, @Valid @RequestBody UsuarioUpdSenhaDTO upd){
+        var response = usuarioService.updatePassword(id, upd.getPassword());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR')")
+    @ApiOperation("Listagem de usuários")
+    public ResponseEntity<List<UsuarioDTO>> listarUsuarios(UsuarioFilterDTO filtro){
+        var model = usuarioMapper.mapUsuarioFilterDTOToModel(filtro);
+        var response = usuarioMapper.mapUsuarioModelToUsuarioDTO(usuarioService.findAll(model));
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR')")
     @ApiOperation("Exclusão de dados de um usuário específico por ID")
-    public ResponseEntity<Void> deleteUsuarioById(@PathVariable Long id){
-        usuarioService.delete(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Boolean> deleteUsuarioById(@PathVariable Long id){
+        var response = usuarioService.delete(id);
+        return ResponseEntity.ok(response);
     }
 
 }

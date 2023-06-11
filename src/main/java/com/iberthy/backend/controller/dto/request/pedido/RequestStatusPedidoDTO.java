@@ -1,7 +1,7 @@
-package com.iberthy.backend.service.dto.request.pedido;
+package com.iberthy.backend.controller.dto.request.pedido;
 
 import com.iberthy.backend.domain.enums.StatusPedido;
-import com.iberthy.backend.domain.validation.sexo.SexoValidate;
+import com.iberthy.backend.domain.validation.statusPedido.StatusPedidoValidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class RequestStatusPedidoDTO {
 
-    @SexoValidate
+    @StatusPedidoValidate
     private String status;
 
     public StatusPedido transformIntoStatusPedido(RequestStatusPedidoDTO statusPedidoDTO){

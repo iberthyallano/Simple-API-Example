@@ -15,7 +15,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Pessoa extends AbstractEntity {
+public abstract class PessoaModel extends AbstractEntity {
 
     @NotBlank(message = Message.nomeNotBlank)
     public String nome;

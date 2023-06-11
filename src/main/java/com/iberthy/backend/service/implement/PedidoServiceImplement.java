@@ -1,10 +1,10 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.service.dto.request.pedido.RequestItemPedidoDTO;
-import com.iberthy.backend.service.dto.request.pedido.RequestPedidoDTO;
-import com.iberthy.backend.service.dto.request.pedido.RequestStatusPedidoDTO;
-import com.iberthy.backend.domain.entity.pedido.ItemPedido;
-import com.iberthy.backend.domain.entity.pedido.Pedido;
+import com.iberthy.backend.controller.dto.request.pedido.RequestItemPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestStatusPedidoDTO;
+import com.iberthy.backend.domain.entity.pedido.ItemPedidoModel;
+import com.iberthy.backend.domain.entity.pedido.PedidoModel;
 import com.iberthy.backend.domain.enums.StatusPedido;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.Pedido.ItemPedidoRepository;
@@ -16,14 +16,12 @@ import com.iberthy.backend.util.CommonMethods;
 import com.iberthy.backend.util.Message;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Log4j2
 @Service
@@ -42,7 +40,7 @@ public class PedidoServiceImplement implements PedidoService {
     private ProdutoService produtoService;
 
     @Override
-    public Page<Pedido> findAllByCliente(Long clienteId, Pageable pageable) {
+    public List<PedidoModel> findAllByCliente(Long clienteId) {
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -51,7 +49,7 @@ public class PedidoServiceImplement implements PedidoService {
 
             if(cliente == null){throw new GenericException(Message.clienteInvalidId);}
 
-            var page = pedidoRespository.findByCliente(cliente,pageable);
+            var page = pedidoRespository.findByCliente(cliente);
 
             log.warn("Executada com sucesso!");
             return page;
@@ -64,7 +62,7 @@ public class PedidoServiceImplement implements PedidoService {
     }
 
     @Override
-    public Pedido findById(Long id) {
+    public PedidoModel findById(Long id) {
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -83,7 +81,7 @@ public class PedidoServiceImplement implements PedidoService {
 
     @Override
     @Transactional
-    public Pedido save(RequestPedidoDTO requestPedidoDTO) {
+    public PedidoModel save(RequestPedidoDTO requestPedidoDTO) {
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -112,7 +110,7 @@ public class PedidoServiceImplement implements PedidoService {
 
     @Override
     @Transactional
-    public Pedido alterarStatus(Long id, RequestStatusPedidoDTO requestStatusPedidoDTO) {
+    public Boolean alterarStatus(Long id, RequestStatusPedidoDTO requestStatusPedidoDTO) {
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -124,11 +122,10 @@ public class PedidoServiceImplement implements PedidoService {
             var status = requestStatusPedidoDTO.transformIntoStatusPedido(requestStatusPedidoDTO);
 
             pedido.setStatus(status);
-
-            var save = pedidoRespository.save(pedido);
+            pedidoRespository.save(pedido);
 
             log.warn("Executada com sucesso!");
-            return save;
+            return true;
         }catch(Exception ex){
             log.error("Executada com erro ".concat(ex.getMessage()), ex);
             throw ex;
@@ -137,7 +134,7 @@ public class PedidoServiceImplement implements PedidoService {
         }
     }
 
-    private List<ItemPedido> converterItems(Pedido pedido, List<RequestItemPedidoDTO> requestItemPedidoDTOList){
+    private List<ItemPedidoModel> converterItems(PedidoModel pedido, List<RequestItemPedidoDTO> requestItemPedidoDTOList){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);

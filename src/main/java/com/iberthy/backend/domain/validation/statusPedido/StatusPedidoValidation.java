@@ -17,7 +17,9 @@ public class StatusPedidoValidation implements ConstraintValidator<StatusPedidoV
 
         if(status == null){
             return false;
-        }else if(!status.equals(StatusPedido.REALIZADO.name()) && !status.equals(StatusPedido.CANCELADO.name())){
+        }else if(!status.equals(StatusPedido.CRIADO.name()) &&
+                 !status.equals(StatusPedido.FINALIZADO.name()) &&
+                 !status.equals(StatusPedido.CANCELADO.name())){
             return false;
         }
 

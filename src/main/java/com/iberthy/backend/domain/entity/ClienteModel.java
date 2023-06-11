@@ -1,7 +1,7 @@
 package com.iberthy.backend.domain.entity;
 
-import com.iberthy.backend.domain.abstracts.Pessoa;
-import com.iberthy.backend.domain.entity.pedido.Pedido;
+import com.iberthy.backend.domain.abstracts.PessoaModel;
+import com.iberthy.backend.domain.entity.pedido.PedidoModel;
 import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,12 +17,12 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @Entity
-public class Cliente extends Pessoa {
+public class ClienteModel extends PessoaModel {
 
     @NotNull(message = Message.saldoCarteiraNotNull)
     private Double saldoCarteira;
 
     @OneToMany( mappedBy = "cliente" , fetch = FetchType.LAZY )
-    private Set<Pedido> pedidos;
+    private Set<PedidoModel> pedidos;
 
 }

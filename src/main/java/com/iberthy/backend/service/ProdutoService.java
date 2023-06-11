@@ -1,19 +1,19 @@
 package com.iberthy.backend.service;
 
-import com.iberthy.backend.domain.entity.Produto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.iberthy.backend.domain.entity.ProdutoModel;
+
+import java.util.List;
 
 public interface ProdutoService {
 
-    Page<Produto> findAll(Produto filtro, Pageable pageable);
+    List<ProdutoModel> findAll(ProdutoModel filtro);
 
-    Produto findById(Long id);
+    ProdutoModel findById(Long id);
 
-    Produto save(Produto produto);
+    ProdutoModel save(ProdutoModel produto);
 
-    Produto edite(Long id, Produto produto);
+    ProdutoModel edite(Long id, ProdutoModel produto);
 
-    Produto delete(Long id);
+    Boolean delete(Long id);
 
 }

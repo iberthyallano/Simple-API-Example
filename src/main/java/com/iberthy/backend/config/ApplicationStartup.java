@@ -1,6 +1,6 @@
 package com.iberthy.backend.config;
 
-import com.iberthy.backend.domain.entity.Usuario;
+import com.iberthy.backend.domain.entity.UsuarioModel;
 import com.iberthy.backend.domain.enums.Sexo;
 import com.iberthy.backend.domain.enums.RolesUsuario;
 import com.iberthy.backend.service.UsuarioService;
@@ -24,7 +24,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
         if(apiadm == null){
 
-            var usuario = new Usuario();
+            var usuario = new UsuarioModel();
 
             usuario.setUsername("apiadm");
             usuario.setPassword("P@sw12");

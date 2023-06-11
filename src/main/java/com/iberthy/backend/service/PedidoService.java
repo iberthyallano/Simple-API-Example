@@ -1,18 +1,20 @@
 package com.iberthy.backend.service;
 
-import com.iberthy.backend.service.dto.request.pedido.RequestPedidoDTO;
-import com.iberthy.backend.service.dto.request.pedido.RequestStatusPedidoDTO;
-import com.iberthy.backend.domain.entity.pedido.Pedido;
+import com.iberthy.backend.controller.dto.request.pedido.RequestPedidoDTO;
+import com.iberthy.backend.controller.dto.request.pedido.RequestStatusPedidoDTO;
+import com.iberthy.backend.domain.entity.pedido.PedidoModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface PedidoService {
 
-    Page<Pedido> findAllByCliente(Long clienteId, Pageable pageable);
+    List<PedidoModel> findAllByCliente(Long clienteId);
 
-    Pedido findById(Long id);
+    PedidoModel findById(Long id);
 
-    Pedido save(RequestPedidoDTO requestPedidoDTO);
+    PedidoModel save(RequestPedidoDTO requestPedidoDTO);
 
-    Pedido alterarStatus(Long id, RequestStatusPedidoDTO requestStatusPedidoDTO);
+    Boolean alterarStatus(Long id, RequestStatusPedidoDTO requestStatusPedidoDTO);
 }

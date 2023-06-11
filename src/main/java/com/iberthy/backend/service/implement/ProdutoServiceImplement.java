@@ -1,6 +1,6 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.domain.entity.Produto;
+import com.iberthy.backend.domain.entity.ProdutoModel;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.ProdutoRepository;
 import com.iberthy.backend.service.ProdutoService;
@@ -10,10 +10,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+
 
 @Log4j2
 @Service
@@ -22,7 +22,7 @@ public class ProdutoServiceImplement implements ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public Page<Produto> findAll(Produto filtro, Pageable pageable){
+    public List<ProdutoModel> findAll(ProdutoModel filtro){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -32,11 +32,7 @@ public class ProdutoServiceImplement implements ProdutoService {
 
             var example = Example.of(filtro,matcher);
 
-            if(filtro.isEnabled() != false){
-                filtro.setEnabled(true);
-            }
-
-            var page = produtoRepository.findAll(example, pageable);
+            var page = produtoRepository.findAll(example);
 
             log.warn("Executada com sucesso!");
             return page;
@@ -48,7 +44,7 @@ public class ProdutoServiceImplement implements ProdutoService {
         }
     }
 
-    public Produto findById(Long id){
+    public ProdutoModel findById(Long id){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -66,7 +62,7 @@ public class ProdutoServiceImplement implements ProdutoService {
     }
 
     @Transactional
-    public Produto save(Produto produto){
+    public ProdutoModel save(ProdutoModel produto){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -84,7 +80,7 @@ public class ProdutoServiceImplement implements ProdutoService {
     }
 
     @Transactional
-    public Produto edite(Long id, Produto produto){
+    public ProdutoModel edite(Long id, ProdutoModel produto){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -108,7 +104,7 @@ public class ProdutoServiceImplement implements ProdutoService {
     }
 
     @Transactional
-    public Produto delete(Long id){
+    public Boolean delete(Long id){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -119,10 +115,10 @@ public class ProdutoServiceImplement implements ProdutoService {
 
             produtoDb.setEnabled(false);
 
-            var prod = produtoRepository.save(produtoDb);
+            produtoRepository.save(produtoDb);
 
             log.warn("Executada com sucesso!");
-            return prod;
+            return true;
         }catch(Exception ex){
             log.error("Executada com erro ".concat(ex.getMessage()), ex);
             throw ex;

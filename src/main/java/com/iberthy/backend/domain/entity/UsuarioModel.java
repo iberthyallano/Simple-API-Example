@@ -1,6 +1,6 @@
 package com.iberthy.backend.domain.entity;
 
-import com.iberthy.backend.domain.abstracts.Pessoa;
+import com.iberthy.backend.domain.abstracts.PessoaModel;
 import com.iberthy.backend.util.Message;
 import com.iberthy.backend.domain.validation.rolesUsuario.RolesUsuarioValidate;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.*;
 @AllArgsConstructor
 @Data
 @Entity
-public class Usuario extends Pessoa implements UserDetails {
+public class UsuarioModel extends PessoaModel implements UserDetails {
 
     @NotBlank(message = Message.userNameNotBlank)
     private String username;
@@ -52,6 +52,11 @@ public class Usuario extends Pessoa implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
     }
 
 }

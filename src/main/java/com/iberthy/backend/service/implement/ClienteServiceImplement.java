@@ -1,6 +1,6 @@
 package com.iberthy.backend.service.implement;
 
-import com.iberthy.backend.domain.entity.Cliente;
+import com.iberthy.backend.domain.entity.ClienteModel;
 import com.iberthy.backend.exception.GenericException;
 import com.iberthy.backend.repository.ClienteRepository;
 import com.iberthy.backend.service.ClienteService;
@@ -10,10 +10,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+
 
 @Log4j2
 @Service
@@ -23,7 +23,7 @@ public class ClienteServiceImplement implements ClienteService {
     private ClienteRepository clienteRepository;
 
     @Override
-    public Page<Cliente> findAll(Cliente filtro, Pageable pageable){
+    public List<ClienteModel> findAll(ClienteModel filtro){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -31,7 +31,7 @@ public class ClienteServiceImplement implements ClienteService {
             var matcher = ExampleMatcher.matching().withIgnoreCase()
                     .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
-            var cliente = clienteRepository.findAll(Example.of(filtro,matcher), pageable);
+            var cliente = clienteRepository.findAll(Example.of(filtro,matcher));
 
             log.warn("Executada com sucesso!");
             return cliente;
@@ -44,7 +44,7 @@ public class ClienteServiceImplement implements ClienteService {
     }
 
     @Override
-    public Cliente findById(Long id){
+    public ClienteModel findById(Long id){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -63,7 +63,7 @@ public class ClienteServiceImplement implements ClienteService {
 
     @Override
     @Transactional
-    public Cliente save(Cliente cliente){
+    public ClienteModel save(ClienteModel cliente){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -82,7 +82,7 @@ public class ClienteServiceImplement implements ClienteService {
 
     @Override
     @Transactional
-    public Cliente edite(Long id, Cliente cliente){
+    public ClienteModel edite(Long id, ClienteModel cliente){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -107,7 +107,7 @@ public class ClienteServiceImplement implements ClienteService {
 
     @Override
     @Transactional
-    public Cliente delete(Long id){
+    public Boolean delete(Long id){
         var nomeFunc = CommonMethods.getNameFunction();
         try {
             log.info("Iniciando execução da função {}", nomeFunc);
@@ -118,10 +118,10 @@ public class ClienteServiceImplement implements ClienteService {
 
             clienteDb.setEnabled(false);
 
-            var result = clienteRepository.save(clienteDb);
+            clienteRepository.save(clienteDb);
 
             log.warn("Executada com sucesso!");
-            return result;
+            return true;
         }catch(Exception ex){
             log.error("Executada com erro ".concat(ex.getMessage()), ex);
             throw ex;

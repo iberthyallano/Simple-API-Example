@@ -1,22 +1,23 @@
 package com.iberthy.backend.service;
 
-import com.iberthy.backend.domain.entity.Usuario;
+import com.iberthy.backend.domain.entity.UsuarioModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.List;
+
 public interface UsuarioService extends UserDetailsService {
 
-    Page<Usuario> findAll(Usuario filtro, Pageable pageable);
+    List<UsuarioModel> findAll(UsuarioModel filtro);
 
-    Usuario findById(Long id);
+    UsuarioModel finByUsername(String username);
 
-    Usuario finByUsername(String username);
+    UsuarioModel save(UsuarioModel usuario);
 
-    Usuario save(Usuario usuario);
+    Boolean updatePassword(Long id, String password);
 
-    Usuario edite(Long id, Usuario usuario);
+    UsuarioModel edite(Long id, UsuarioModel usuario);
 
-    Usuario delete(Long id);
-
+    Boolean delete(Long id);
 }

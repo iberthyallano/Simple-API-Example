@@ -1,4 +1,4 @@
-package com.iberthy.backend.service.dto.request;
+package com.iberthy.backend.controller.dto.request.auth;
 
 import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
@@ -10,12 +10,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RequestAuthDTO {
-
+public class AuthenticateGetDTO {
     @NotBlank(message = Message.userNameNotBlank)
     private String username;
 
     @NotBlank(message = Message.passwordNotBlank)
     private String password;
-
 }

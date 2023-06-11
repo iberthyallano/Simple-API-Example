@@ -1,4 +1,4 @@
-package com.iberthy.backend.service.dto.abstracts;
+package com.iberthy.backend.controller.dto.abstracts;
 
 import com.iberthy.backend.util.Message;
 import com.iberthy.backend.domain.validation.sexo.SexoValidate;
@@ -6,10 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+@MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

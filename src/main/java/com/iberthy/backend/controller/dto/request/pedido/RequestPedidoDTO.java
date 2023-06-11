@@ -1,7 +1,7 @@
-package com.iberthy.backend.service.dto.request.pedido;
+package com.iberthy.backend.controller.dto.request.pedido;
 
-import com.iberthy.backend.domain.entity.Cliente;
-import com.iberthy.backend.domain.entity.pedido.Pedido;
+import com.iberthy.backend.domain.entity.ClienteModel;
+import com.iberthy.backend.domain.entity.pedido.PedidoModel;
 import com.iberthy.backend.domain.enums.StatusPedido;
 import com.iberthy.backend.util.Message;
 import lombok.AllArgsConstructor;
@@ -27,9 +27,9 @@ public class RequestPedidoDTO {
 
     private List<RequestItemPedidoDTO> items;
 
-    public Pedido transformIntoPedido(Cliente cliente, StatusPedido status, LocalDateTime data, RequestPedidoDTO pedidoDTO){
+    public PedidoModel transformIntoPedido(ClienteModel cliente, StatusPedido status, LocalDateTime data, RequestPedidoDTO pedidoDTO){
 
-        var pedido = new Pedido();
+        var pedido = new PedidoModel();
 
         pedido.setValorTotal(pedidoDTO.getValorTotal());
         pedido.setDataPedido(data);

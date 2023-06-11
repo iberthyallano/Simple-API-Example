@@ -1,19 +1,21 @@
 package com.iberthy.backend.service;
 
-import com.iberthy.backend.domain.entity.Cliente;
+import com.iberthy.backend.domain.entity.ClienteModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface ClienteService {
 
-    Page<Cliente> findAll(Cliente filtro, Pageable pageable);
+    List<ClienteModel> findAll(ClienteModel filtro);
 
-    Cliente findById(Long id);
+    ClienteModel findById(Long id);
 
-    Cliente save(Cliente cliente);
+    ClienteModel save(ClienteModel cliente);
 
-    Cliente edite(Long id, Cliente cliente);
+    ClienteModel edite(Long id, ClienteModel cliente);
 
-    Cliente delete(Long id);
+    Boolean delete(Long id);
 
 }

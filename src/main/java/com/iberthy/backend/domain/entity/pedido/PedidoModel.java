@@ -1,6 +1,6 @@
 package com.iberthy.backend.domain.entity.pedido;
 
-import com.iberthy.backend.domain.entity.Cliente;
+import com.iberthy.backend.domain.entity.ClienteModel;
 import com.iberthy.backend.domain.abstracts.AbstractEntity;
 import com.iberthy.backend.domain.enums.StatusPedido;
 import com.iberthy.backend.util.Message;
@@ -19,11 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class Pedido extends AbstractEntity {
+public class PedidoModel extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private ClienteModel cliente;
 
     @NotNull(message = Message.valorTotalNotNull)
     @Min(value = 0, message = Message.valorTotalMin)
@@ -36,6 +36,6 @@ public class Pedido extends AbstractEntity {
     private StatusPedido status;
 
     @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> itens;
+    private List<ItemPedidoModel> itens;
 
 }

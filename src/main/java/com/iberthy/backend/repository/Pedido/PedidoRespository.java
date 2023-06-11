@@ -1,17 +1,17 @@
 package com.iberthy.backend.repository.Pedido;
 
-import com.iberthy.backend.domain.entity.Cliente;
-import com.iberthy.backend.domain.entity.pedido.Pedido;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.iberthy.backend.domain.entity.ClienteModel;
+import com.iberthy.backend.domain.entity.pedido.PedidoModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface PedidoRespository extends JpaRepository<Pedido, Long> {
+import java.util.List;
 
-    @Query("select p from Pedido p left join fetch p.itens where p.id = :id ")
-    Pedido findByIdFetchItens(@Param("id") Long id);
+public interface PedidoRespository extends JpaRepository<PedidoModel, Long> {
 
-    Page<Pedido> findByCliente(Cliente cliente, Pageable pageable);
+    @Query("select p from PedidoModel p left join fetch p.itens where p.id = :id ")
+    PedidoModel findByIdFetchItens(@Param("id") Long id);
+
+    List<PedidoModel> findByCliente(ClienteModel cliente);
 }
